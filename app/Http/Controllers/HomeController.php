@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UploadRequest;
 use Carbon\Carbon;
 use Response;
+
 class HomeController extends Controller {
 
     /**
@@ -31,13 +32,20 @@ class HomeController extends Controller {
     }
 
     public function uploadvideo(Request $request) {
-        
-          $action = "new";
-        return Response::json(array(
-                    'success' => TRUE,
-                    'errors' => 'Appication Saved!',
-                    'action' => $action
-                        ), 200);
+
+        $uniqueName = (integer) microtime(); // For unique naming vaideo/poster
+        echo "$uniqueName" . $uniqueName;
+        $videoSrc = "";
+        $thumbnailSrc = "";
+         $file = $request->file('video'); 
+      //  $file = $request->video;
+        echo "files" . $file;
+        /*   $action = "new";
+          return Response::json(array(
+          'success' => TRUE,
+          'errors' => 'Appication Saved!',
+          'action' => $action
+          ), 200); */
     }
 
 }

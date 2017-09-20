@@ -14,27 +14,27 @@
                 </div>
                         <div class="col-md-6">
                             <label>Post Title</label>
-                            <input type="text" class="form-control"  name="title" placeholder="Post Title" required="">
+                            <input type="text" class="form-control"  name="title" placeholder="Post Title" required="" value="{{ old('title') }}">
                         </div>
                         <div class="col-md-6">
                             <label>Post Category</label>
-                            <input type="text" class="form-control" name="category" placeholder="Post Category" required="">
+                            <input type="text" class="form-control" name="category" placeholder="Post Category" required=""  value="{{ old('category') }}">
                         </div>
                         <div class="col-md-6">
                             <label>Post Tags</label>
-                            <input type="text" class="form-control" name="tags" placeholder="Post Tags" required="">
+                            <input type="text" class="form-control" name="tags" placeholder="Post Tags" required=""  value="{{ old('tags') }}">
                         </div>
                         <div class="col-md-6">
                             <label>Video upload</label>
-                            <input id="upload_file" type="file" name="file" class="file" name="video" required="">
+                            <input id="upload_file" type="file"  class="file" name="video" required="" value="{{ old('video') }}">
                         </div>
                         <div class="col-md-12">
                             <label>Post Excerpt</label>
-                            <textarea class="form-control" rows="4" name="post" placeholder="COMMENT" required=""></textarea>
+                            <textarea class="form-control" rows="4" name="post" placeholder="COMMENT" required="" value="{{ old('post') }}"></textarea>
                         </div>
                         <div class="col-md-6">
                             <label>Post Featured Image</label>
-                            <input id="featured_image" type="file" name="iamge" class="file">
+                            <input id="featured_image" type="file" name="fImage" class="file" value="{{ old('fImage') }}">
                         </div>
                         <div class="col-md-6">
                             <button type="submit" id="contact_submit" class="btn btn-dm">Save your post</button>
@@ -69,13 +69,7 @@
         
         $('#uploadVideo').ajaxForm({
             success: function (data) {
-              
-
                 result = data
-                
-                $("#formSuccess").html('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>\
-      </button>\
-      <strong><i class="fa fa-check-circle" aria-hidden="true"></i> Success! </strong>Your Application has been saved.');
                 $("#formSuccess").show();
                 $("html, body").animate({scrollTop: 0}, "slow");
                 $(".help-block").html("");
