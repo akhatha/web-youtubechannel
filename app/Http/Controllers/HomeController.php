@@ -31,15 +31,24 @@ class HomeController extends Controller {
         return view('upload');
     }
 
+    /** upload video and generating thumbnail
+     * 
+     * @param Request $request
+     * return type
+     * 
+     */
     public function uploadvideo(Request $request) {
-
+     //   dd($request->all());
         $uniqueName = (integer) microtime(); // For unique naming vaideo/poster
         echo "$uniqueName" . $uniqueName;
         $videoSrc = "";
         $thumbnailSrc = "";
-         $file = $request->file('video'); 
-      //  $file = $request->video;
-        echo "files" . $file;
+        $file = $request->file('video');
+         $fileName = $uniqueName.'.'. $file->getClientOriginalExtension();
+       // $destinationPath = $request->video->storeAs('uploads/video', $file_name . "" . Carbon::now()->timestamp . "." . $extension);
+
+        //  $file = $request->video;
+        echo "files" . $fileName;
         /*   $action = "new";
           return Response::json(array(
           'success' => TRUE,
