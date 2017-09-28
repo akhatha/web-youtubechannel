@@ -53,6 +53,7 @@ class HomeController extends Controller {
             'video' => 'required',
             'post' => 'required',
         ]);
+        $action="new";
         $file_name = $request->video->getClientOriginalName();
         $size = $request->video->getSize();
         $file_size = number_format($size / 1048576, 1);
@@ -66,6 +67,16 @@ class HomeController extends Controller {
         $saveVideoData["video_type"] = $extension;
         $saveVideoData["mb_used"] = $file_size;
         Upload::add($saveVideoData);//inserted videos 
+        $id = DB::getPdo()->lastInsertId();
+        $getVideoPath=Upload::select('video_name')->where('channel_id','=',$getchannelId->channel_id)->first();
+        $video_path= $getVideoPath->video_name;
+        dd($video_path);
+        return Response::json(array(
+                        'success' => TRUE,
+                        'errors' => 'Video Uploaded sucessfully',
+                        'action' => $action
+                            ), 200);
+        
        
         
     }
