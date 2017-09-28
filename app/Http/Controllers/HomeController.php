@@ -38,23 +38,38 @@ class HomeController extends Controller {
      * 
      */
     public function uploadvideo(Request $request) {
-     //   dd($request->all());
-        $uniqueName = (integer) microtime(); // For unique naming vaideo/poster
-        echo "$uniqueName" . $uniqueName;
-        $videoSrc = "";
-        $thumbnailSrc = "";
-        $file = $request->file('video');
-         $fileName = $uniqueName.'.'. $file->getClientOriginalExtension();
-       // $destinationPath = $request->video->storeAs('uploads/video', $file_name . "" . Carbon::now()->timestamp . "." . $extension);
+        $this->validate($request, [
+            'title' => 'required',
+            'tags' => 'required',
+            'category' => 'required',
+            'video' => 'required',
+            'post' => 'required',
+        ]);
+        $file_name = $request->video->getClientOriginalName();
+        $size = $request->video->getSize();
+        $file_size = number_format($size / 1048576, 1);
+        $file_name = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file_name);
+        $extension = $request->video->extension(); //get the extetension 
+        $video_path = $request->video->storeAs('uploads/image/videos', $file_name . "" . Carbon::now()->timestamp . "." . $extension);
+        $saveVideoData["video_name"] = $video_path;
+        $saveVideoData["video_type"] = $extension;
+        $saveVideoData["mb_used"] = $file_size;
+    }
 
-        //  $file = $request->video;
-        echo "files" . $fileName;
-        /*   $action = "new";
-          return Response::json(array(
-          'success' => TRUE,
-          'errors' => 'Appication Saved!',
-          'action' => $action
-          ), 200); */
+    /**
+     * 
+     * @param Request $request
+     * 
+     */
+    public function getVideoName(Request $request) {
+        $file_name = $request->video->getClientOriginalName();
+        $size = $request->video->getSize();
+        $file_size = number_format($size / 1048576, 1);
+        $file_name = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file_name);
+        $extension = $request->video->extension(); //get the extetension 
+        $video_path = $request->video->storeAs('uploads/image/videos', $file_name . "" . Carbon::now()->timestamp . "." . $extension);
+        echo json_encode($video_path);
+        
     }
 
 }

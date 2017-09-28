@@ -6,12 +6,15 @@
             <!-- upload -->
             <div class="col-md-8">
                 <h1 class="page-title"><span>Upload</span> Video</h1>
-              
- <form name="uploadVideo" id="uploadVideo" method="post" action="{{ action('HomeController@uploadvideo') }}" enctype="multipart/form-data"  >                    {{ csrf_field() }}
-                    <div class="row">
-                          <div class="alert alert-success alert-dismissible" id="formSuccess" role="alert" style="clear:both;display: none">
 
-                </div>
+                <form name="uploadVideo" id="uploadVideo" method="post" action="{{ action('HomeController@uploadvideo') }}" enctype="multipart/form-data"  >                 
+                    {{ csrf_field() }}
+                    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+
+                    <div class="row">
+                        <div class="alert alert-success alert-dismissible" id="formSuccess" role="alert" style="clear:both;display: none">
+
+                        </div>
                         <div class="col-md-6">
                             <label>Post Title</label>
                             <input type="text" class="form-control"  name="title" placeholder="Post Title" required="" value="{{ old('title') }}">
@@ -36,6 +39,17 @@
                             <label>Post Featured Image</label>
                             <input id="featured_image" type="file" name="fImage" class="file" value="{{ old('fImage') }}">
                         </div>
+                            <video id="my_video" controls>
+                      
+                            </video>
+                <br />
+                The Canvas
+                <br />
+                    <canvas id="thecanvas">
+                    </canvas>
+                        <script>
+    
+</script>
                         <div class="col-md-6">
                             <button type="submit" id="contact_submit" class="btn btn-dm">Save your post</button>
                         </div>
@@ -52,43 +66,64 @@
 </div>
 
 @include ('common.footer')
- <script
-        src="https://code.jquery.com/jquery-3.2.1.min.js"
-        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-    crossorigin="anonymous"></script>
+<script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-      <script type="text/javascript" src="{{ asset('js/angular_functions.js') }}"></script>
-  <script src="http://malsup.github.com/jquery.form.js"></script> 
-   
-  
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{{ asset('js/angular_functions.js') }}"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script> 
+
+
 <script type="text/javascript">
 
-    $(document).ready(function () {
-        
-        $('#uploadVideo').ajaxForm({
-            success: function (data) {
-                result = data
-                $("#formSuccess").show();
-                $("html, body").animate({scrollTop: 0}, "slow");
-                $(".help-block").html("");
-                if (result.action == "new") {
-                   
-                     $("#formSuccess").html('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>\
+$(document).ready(function () {
+
+    $('#uploadVideo').ajaxForm({
+        success: function (data) {
+            result = data
+            $("#formSuccess").show();
+            $("html, body").animate({scrollTop: 0}, "slow");
+            $(".help-block").html("");
+            if (result.action == "new") {
+
+                $("#formSuccess").html('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>\
       </button>\
       <strong><i class="fa fa-check-circle" aria-hidden="true"></i> Success! </strong>Your Application has been saved.');
-                    setTimeout(function () {
-                        window.location.reload();
-                    }, 3000)
-
-                }
-
-            },
-            error: function (data) {
+                setTimeout(function () {
+                    window.location.reload();
+                }, 3000)
 
             }
-            //alert("Thank you for your comment!"); 
-        });
+
+        },
+        error: function (data) {
+
+        }
+        //alert("Thank you for your comment!"); 
     });
+     $('input[name="video"]').bind('change', function () {
+       
+           var filename = $('input[type=file]').val().replace(/C:\\fakepath\\/i, '');
+           var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+           //$("#my_video").html('<source src="'+ filename +'" type="video/mp4"></source>' );
+        $.ajax({
+      
+            method: "POST",
+             data:   "_token": "{{ csrf_token() }}",
+            url: siteUrl + "/upload-video/getVideoName", //change url 
+            data: {video: filename}
+        })
+                .done(function (msg) {
+                    var data = $.parseJSON(msg);
+                 console.log(data);
+
+
+                });
+
+        });
+});
 </script>
+
