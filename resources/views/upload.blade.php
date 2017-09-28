@@ -104,23 +104,25 @@ $(document).ready(function () {
         }
         //alert("Thank you for your comment!"); 
     });
-     $('input[name="video"]').bind('change', function () {
-       
-           var filename = $('input[type=file]').val().replace(/C:\\fakepath\\/i, '');
-           var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+     $('input[name="video"]').bind('change', function (e) {
+            var filename = e. target. files[0]. name;
+           var filenames = $('input[name="video"]').val();
+           console.log(filename);
+          var ext  = filenames.split('.')[1];
+           console.log(ext);
+            var size =  ($('input[name="video"]')[0].files[0].size / 1024);
+            iSize = (Math.round((size / 1024) * 100) / 100);
+           
+          var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
            //$("#my_video").html('<source src="'+ filename +'" type="video/mp4"></source>' );
         $.ajax({
-      
             method: "POST",
-             data:   "_token": "{{ csrf_token() }}",
+            data: {"_token": "{{ CSRF_TOKEN() }}",video:filename,videoExt:ext},
             url: siteUrl + "/upload-video/getVideoName", //change url 
-            data: {video: filename}
         })
-                .done(function (msg) {
+               .done(function (msg) {
                     var data = $.parseJSON(msg);
                  console.log(data);
-
-
                 });
 
         });

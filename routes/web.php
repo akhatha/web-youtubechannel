@@ -26,6 +26,7 @@ Route::get('/index', 'BaseController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/upload', 'HomeController@upload')->name('home');
 Route::post('/upload-video', 'HomeController@uploadvideo')->name('home');
+
 Route::post('/upload-video/getVideoName', 'HomeController@getVideoName');
 
 //admin Route
