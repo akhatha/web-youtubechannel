@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Page title -->
+    <title>Video  |Admin Panel</title>
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!--<link rel="shortcut icon" type="image/ico" href="favicon.ico" />-->
+  <!-- Vendor styles -->
+    <link rel="stylesheet" href="backend/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="backend/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="backend/css/style.css">
+
+</head>
+<body class="fixed-navbar sidebar-scroll">
+
+<!-- Simple splash screen-->
+<div class="splash"> <div class="color-line"></div><div class="splash-title"><h1>Vizzdeo</h1>
+<div class="spinner"> <div class="rect1"></div> <div class="rect2"></div> <div class="rect3"></div> <div class="rect4"></div> <div class="rect5"></div> </div> </div> </div>
+
+<div class="color-line"></div>
+
+
+
+<div class="login-container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-center m-b-md"><h1>Vizzdeo</h1>
+                <h3>PLEASE LOGIN TO APP</h3>
+            </div>
+            <div class="hpanel">
+                <div class="panel-body">
+                        <form action="vizzdeoadmin/dashboard" id="loginForm" method="POST">
+                            <div class="form-group">
+							
+                                <label class="control-label" for="username">Email</label>
+								<input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <input type="email" placeholder="example@gmail.com" title="Please enter you username" required="" value="" name="email" id="email" class="form-control">
+                               
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="password">Password</label>
+                                <input type="password" title="Please enter your password" placeholder="******" required="" value="" name="password" id="password" class="form-control">
+                              
+                            </div>
+                          
+                            <button class="btn btn-success btn-block" href="category.html">Login</button>
+                       
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <strong>VIZZDEO</strong>  <br/> 2017 Copyright 
+        </div>
+    </div>
+</div>
+<script src="backend/js/jquery.min.js"></script>
+<script src="backend/js/bootstrap.min.js"></script>
+
+</body>
+</html>

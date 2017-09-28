@@ -30,7 +30,9 @@ Route::post('/upload-video', 'HomeController@uploadvideo')->name('home');
 Route::post('/upload-video/getVideoName', 'HomeController@getVideoName');
 
 //admin Route
-Route::get('/youtubeadmin', 'LoginController@index');
-Route::post('/youtubeadmin/postLogin', 'LoginController@postLogin');
-Route::get('youtubeadmin/category', 'AdminController@index');
-Route::get('youtubeadmin/revenuemonthly', 'AdminController@getRevenueMonthly');
+Route::get('/vizzdeoadmin', 'LoginController@index');
+Route::get('/vizzdeoadmin/dashboard', 'LoginController@postLogin');
+
+Route::post('/vizzdeoadmin/dashboard', 'LoginController@postLogin');
+
+Route::get('vizzdeoadmin/revenuemonthly', 'AdminController@getRevenueMonthly');
