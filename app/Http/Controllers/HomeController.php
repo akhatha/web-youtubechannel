@@ -65,7 +65,7 @@ class HomeController extends Controller {
         $saveVideoData["video_name"] = $video_path;
         $saveVideoData["video_type"] = $extension;
         $saveVideoData["mb_used"] = $file_size;
-        Upload::add($saveVideoData);
+        Upload::add($saveVideoData);//inserted videos 
        
         
     }
