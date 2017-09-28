@@ -16,7 +16,7 @@ Route::get('/', function () {
 });*/
 
 Route::get('/', function () {
-    return redirect('/index');
+     
 });
 
 
@@ -28,3 +28,8 @@ Route::get('/upload', 'HomeController@upload')->name('home');
 Route::post('/upload-video', 'HomeController@uploadvideo')->name('home');
 Route::post('/upload-video/getVideoName', 'HomeController@getVideoName');
 
+//admin Route
+Route::get('/youtubeadmin', 'LoginController@index');
+Route::post('/youtubeadmin/postLogin', 'LoginController@postLogin');
+Route::get('youtubeadmin/category', 'AdminController@index');
+Route::get('youtubeadmin/revenuemonthly', 'AdminController@getRevenueMonthly');
