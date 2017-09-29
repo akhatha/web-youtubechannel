@@ -107,7 +107,7 @@ class HomeController extends Controller {
         $file_name = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file_name);
         $extension = $request->video->extension(); //get the extetension 
         $video_path = $request->video->storeAs('uploads/image/videos', $file_name . "" . Carbon::now()->timestamp . "." . $extension);
-
+ $value = $video_path;
        /* $saveVideoData["channel_id"] = $getchannelId->channel_id;
         $saveVideoData["category_id"] = 1;
         $saveVideoData["video_name"] = $video_path;
