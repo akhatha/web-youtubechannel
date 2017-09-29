@@ -30,6 +30,22 @@ class HomeController extends Controller {
         return view('home');
     }
 
+    public function trending() {
+       
+        return view('three_sixty_video');
+    }
+    
+    public function history() {
+       
+        return view('history');
+    }
+    
+     public function edit_profile()
+     {
+        return view('edit_profile');
+    }
+    
+    
     public function upload() {
        
         return view('upload');

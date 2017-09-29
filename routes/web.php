@@ -23,9 +23,10 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::get('/index', 'BaseController@index');
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/upload', 'HomeController@upload')->name('home');
-Route::post('/upload-video', 'HomeController@uploadvideo')->name('home');
+Route::get('/home', 'HomeController@index');
+Route::get('/upload', 'HomeController@upload');
+Route::get('/trending', 'HomeController@trending');
+Route::post('/upload-video', 'HomeController@uploadvideo');
 
 Route::post('/upload-video/getVideoName', 'HomeController@getVideoName');
 

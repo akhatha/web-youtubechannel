@@ -34,7 +34,89 @@
     var siteUrl = '<?php echo url('/'); ?>';
   </script> 
     </head>
+      @if (Auth::guest())
+<body>
+      <!--======= header =======-->
+      <header>
+        <div class="container-full">
+        	<div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-12">
+					<a id="main-category-toggler" class="hidden-md hidden-lg hidden-md"  href="#">
+                    	<i class="fa fa-navicon"></i>
+                    </a>
+					<a id="main-category-toggler-close" class="hidden-md hidden-lg hidden-md" href="#">
+                    	<i class="fa fa-close"></i>
+                    </a>
+                    <div id="logo">
+                        <a href="home.html"><img src="images/logo.png" alt=""></a>
+                    </div>
+                </div><!-- // col-md-2 -->
+                <div class="col-lg-3 col-md-3 col-sm-6 hidden-xs hidden-sm">
+                    <div class="search-form">
+                        <form id="search" action="#" method="post">
+                            <input type="text" placeholder="Search here video posts..."/>
+                            <input type="submit" value="Keywords" />
+                        </form>
+                    </div>
+                </div><!-- // col-md-3 -->
+                <div class="col-lg-5 col-md-6 col-sm-5 hidden-xs hidden-sm">
+                    <ul class="top-menu">
+                        <li><a href="{{url('/index')}}">home</a></li>
+                        <li><a href="{{url('/trending')}}">trending</a></li>
+                   <!--     <li><a href="history.html">history</a></li>  -->
+<li><a href="{{url('/register')}}">SignUp</a></li>
+<li><a href="{{url('/login')}}">SignIn</a></li>
+                    </ul>
+                </div><!-- // col-md-4 -->
+               
+                
+            </div><!-- // row -->
+        </div><!-- // container-full -->
+      </header><!-- // header -->
 
+      <div id="main-category">
+        <div class="container-full">
+        	<div class="row">
+                <div class="col-md-12">
+                    <ul class="main-category-menu">
+                       <li class="color-1"><a href="music.html"><i class="fa fa-music"></i>Music</a></li>
+                        <li class="color-2"><a href="sports.html"><i class="fa fa-soccer-ball-o"></i>Sports</a></li>
+                        <li class="color-3"><a href="gaming.html"><i class="fa fa-gamepad"></i>Gaming</a></li>
+                        <li class="color-4"><a href="news.html"><i class="fa fa-globe"></i>News</a></li>
+                        <li class="color-1"><a href="live.html"><i class="fa fa-play-circle-o"></i>Live</a></li>
+                    </ul>
+                </div><!-- // col-md-14 -->
+              </div><!-- // row -->
+          </div><!-- // container-full -->
+      </div><!-- // main-category -->
+
+	  <div class="site-output">
+      	<div class="col-md-2 no-padding-left hidden-sm hidden-xs">
+        	<div class="left-sidebar">
+            	<div id="sidebar-stick" >
+            	<ul class="menu-sidebar">
+                	<li><a href="index"><i class="fa fa-home"></i>Home</a></li>
+                	<li><a href="trending"><i class="fa fa-bolt"></i>Trending</a></li>
+                	<!--  <li><a href="history.html"><i class="fa fa-clock-o"></i>History</a></li>
+                	 <li><a href="blog.html"><i class="fa fa-file-text"></i>blog</a></li>  
+                	<li><a href="upload.html"><i class="fa fa-upload"></i>upload</a></li>  -->
+                </ul>
+            <!--	<ul class="menu-sidebar">
+                	<li><a href="#"><i class="fa fa-edit"></i>edit profile</a></li>
+                	<li><a href="#"><i class="fa fa-sign-out"></i>sign out</a></li>
+                </ul>  -->
+            	<ul class="menu-sidebar">
+            <li><a href="privacy"><i class="fa fa-gear"></i>Privacy</a></li>
+                	<li><a href="terms_conditions"><i class="fa fa-question-circle"></i>Terms & Conditions</a></li>
+                	<li><a href="feedback"><i class="fa fa-send-o"></i>Send feedback</a></li>
+                </ul>
+                </div><!-- // sidebar-stick -->
+                <div class="clear"></div>
+            </div><!-- // left-sidebar -->
+        </div><!-- // col-md-2 -->
+
+      @else  
+         
     <body>
       <!--======= header =======-->
       <header>
@@ -62,8 +144,8 @@
                 <div class="col-lg-3 col-md-3 col-sm-5 hidden-xs hidden-sm">
                     <ul class="top-menu">
                         <li><a href="home">home</a></li>
-                        <li><a href="#">trending</a></li>
-                        <li><a href="history.html">history</a></li>
+                        <li><a href="trending">trending</a></li>
+                        <li><a href="history">history</a></li>
                     </ul>
                 </div><!-- // col-md-4 -->
                 <div class="col-lg-2 col-md-2 col-sm-4 hidden-xs hidden-sm">
@@ -183,9 +265,9 @@
                             <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu account-menu">
-                           <li><a href="#"><i class="fa fa-edit color-1"></i>Edit profile</a></li>
-                           <li><a href="#"><i class="fa fa-video-camera color-2"></i>add video</a></li>
-                           <li><a href="#"><i class="fa fa-star color-3"></i>Favorites</a></li>
+                           <li><a href="edit_profile"><i class="fa fa-edit color-1"></i>Edit profile</a></li>
+                           <li><a href="add_video"><i class="fa fa-video-camera color-2"></i>add video</a></li>
+                           <li><a href="favourite"><i class="fa fa-star color-3"></i>Favorites</a></li>
                            
 						    <li>
                                         <a href="{{ route('logout') }}"
@@ -227,21 +309,22 @@
             	<div id="sidebar-stick" >
             	<ul class="menu-sidebar">
                 	<li><a href="home"><i class="fa fa-home"></i>Home</a></li>
-                	<li><a href="#"><i class="fa fa-bolt"></i>Trending</a></li>
-                	<li><a href="history.html"><i class="fa fa-clock-o"></i>History</a></li>
+                	<li><a href="trending"><i class="fa fa-bolt"></i>Trending</a></li>
+                	<li><a href="history"><i class="fa fa-clock-o"></i>History</a></li>
                 	<!-- <li><a href="blog.html"><i class="fa fa-file-text"></i>blog</a></li>  -->
                 	<li><a href="upload"><i class="fa fa-upload"></i>upload</a></li>
                 </ul>
             	<ul class="menu-sidebar">
-                	<li><a href="#"><i class="fa fa-edit"></i>edit profile</a></li>
-                	<li><a href="#"><i class="fa fa-sign-out"></i>sign out</a></li>
+                	<li><a href="edit_profile"><i class="fa fa-edit"></i>edit profile</a></li>
+                	<li><a href="logout"><i class="fa fa-sign-out"></i>sign out</a></li>
                 </ul>
             	<ul class="menu-sidebar">
-            <li><a href="#"><i class="fa fa-gear"></i>Privacy</a></li>
-                	<li><a href="#"><i class="fa fa-question-circle"></i>Terms & Conditions</a></li>
-                	<li><a href="#"><i class="fa fa-send-o"></i>Send feedback</a></li>
+            <li><a href="privacy"><i class="fa fa-gear"></i>Privacy</a></li>
+                	<li><a href="terms_conditions"><i class="fa fa-question-circle"></i>Terms & Conditions</a></li>
+                	<li><a href="feedback"><i class="fa fa-send-o"></i>Send feedback</a></li>
                 </ul>
                 </div><!-- // sidebar-stick -->
                 <div class="clear"></div>
             </div><!-- // left-sidebar -->
         </div><!-- // col-md-2 -->
+        @endif
