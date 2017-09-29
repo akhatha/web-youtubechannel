@@ -1,12 +1,23 @@
 @include ('common.header')
-
+<style>
+    .loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid blue;
+        border-bottom: 16px solid blue;
+        width: 120px;
+        height: 120px;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+    }
+</style>
 <div id="all-output" class="col-md-10 upload">
     <div id="upload">
         <div class="row">
             <!-- upload -->
             <div class="col-md-8">
                 <h1 class="page-title"><span>Upload</span> Video</h1>
-
+                <div class="loader" ></div>
                 <form name="uploadVideo" id="uploadVideo" method="post" action="{{ action('HomeController@uploadvideo') }}" enctype="multipart/form-data"  >                 
                     {{ csrf_field() }}
                     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
@@ -39,17 +50,14 @@
                             <label>Post Featured Image</label>
                             <input id="featured_image" type="file" name="fImage" class="file" value="{{ old('fImage') }}">
                         </div>
-                            <video id="my_video" controls>
-                      
-                            </video>
-                <br />
-                The Canvas
-                <br />
-                    <canvas id="thecanvas">
-                    </canvas>
-                        <script>
-    
-</script>
+                        <video width="320" height="240" controls id="video">
+                            <source src="http://localhost/youtubechannel/storage/app/uploads/image/videos/test1234.mp4" type="video/mp4">
+                        </video>
+                        <canvas id="canvas" 
+                                width="750px" height="540px"
+                                style="display:none;">
+                        </canvas>
+
                         <div class="col-md-6">
                             <button type="submit" id="contact_submit" class="btn btn-dm">Save your post</button>
                         </div>
@@ -80,21 +88,26 @@ crossorigin="anonymous"></script>
 <script type="text/javascript">
 
 $(document).ready(function () {
-
+    $('.loader').css('visibility', 'hidden');
     $('#uploadVideo').ajaxForm({
+         beforeSubmit : function(arr, $form, options){
+             thumbImageCreate(); 
+         },
         success: function (data) {
             result = data
             $("#formSuccess").show();
             $("html, body").animate({scrollTop: 0}, "slow");
             $(".help-block").html("");
             if (result.action == "new") {
+                // console.log(result.value);
 
+               
                 $("#formSuccess").html('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>\
       </button>\
       <strong><i class="fa fa-check-circle" aria-hidden="true"></i> Success! </strong>Your Application has been saved.');
-                setTimeout(function () {
-                    window.location.reload();
-                }, 3000)
+                /*   setTimeout(function () {
+                 window.location.reload();
+                 }, 3000)*/
 
             }
 
@@ -104,28 +117,93 @@ $(document).ready(function () {
         }
         //alert("Thank you for your comment!"); 
     });
-     $('input[name="video"]').bind('change', function (e) {
-            var filename = e. target. files[0]. name;
-           var filenames = $('input[name="video"]').val();
-           console.log(filename);
-          var ext  = filenames.split('.')[1];
-           console.log(ext);
-            var size =  ($('input[name="video"]')[0].files[0].size / 1024);
-            iSize = (Math.round((size / 1024) * 100) / 100);
-           
-          var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-           //$("#my_video").html('<source src="'+ filename +'" type="video/mp4"></source>' );
+    /*$('input[name="video"]').bind('change', function (e) {
+        var filename = e.target.files[0].name;
+        var filenames = $('input[name="video"]').val();
+        console.log(filename);
+        var ext = filenames.split('.')[1];
+        console.log(ext);
+        var size = ($('input[name="video"]')[0].files[0].size / 1024);
+        iSize = (Math.round((size / 1024) * 100) / 100);
+
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        //$("#my_video").html('<source src="'+ filename +'" type="video/mp4"></source>' );
         $.ajax({
             method: "POST",
-            data: {"_token": "{{ CSRF_TOKEN() }}",video:filename,videoExt:ext},
+            data: {"_token": "{{ CSRF_TOKEN() }}", video: filename, videoExt: ext},
             url: siteUrl + "/upload-video/getVideoName", //change url 
         })
-               .done(function (msg) {
+                .done(function (msg) {
                     var data = $.parseJSON(msg);
-                 console.log(data);
+                    console.log(data);
                 });
 
-        });
+    });*/
 });
+function thumbImageCreate() {
+
+    var time = 15;
+    var scale = 1;
+    var video_obj = null;
+    // $('.selector').append('<video width="320" height="240" controls id="video1" style="display:none"><source src="'+ value +'"></video>');
+    // var a = $("#video1").attr("src");
+//console.log("ss"+a);
+    //console.log("ss"+ss);
+//document.write('<video width="320" height="240" controls id="video1" style="display:none"><source src="'+ value +'"></video>');
+    var time = 15;
+    var scale = 1;
+
+    var video_obj = null;
+
+    var time = 15;
+    var scale = 1;
+
+    var video_obj = null;
+
+    document.getElementById('video').addEventListener('loadedmetadata', function () {
+        this.currentTime = time;
+        video_obj = this;
+
+    }, false);
+
+    document.getElementById('video').addEventListener('loadeddata', function () {
+        var video = document.getElementById('video');
+
+        var canvas = document.createElement("canvas");
+        canvas.width = video.videoWidth * scale;
+        canvas.height = video.videoHeight * scale;
+        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        var img = document.createElement("img");
+        var thumb = canvas.toDataURL();
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        //$("#my_video").html('<source src="'+ filename +'" type="video/mp4"></source>' );
+        $.ajax({
+            method: "POST",
+            data: {"_token": "{{ CSRF_TOKEN() }}", thumb: thumb },
+            url: siteUrl + "/upload-video/getVideoName", //change url 
+        })
+                .done(function (msg) {
+                    var data = $.parseJSON(msg);
+                    console.log(data);
+                });
+
+
+
+        img.src = canvas.toDataURL();
+        
+
+
+        video_obj.currentTime = 0;
+
+    }, false);
+
+
+
+
+}
+function thumbs(canvasData) {
+    console.log(canvasData);
+}
 </script>
 
