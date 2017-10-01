@@ -1,0 +1,2 @@
+[01-Oct-2017 16:53:13 UTC] PHP Warning:  include(header.php): failed to open stream: No such file or directory in /home/raviprasad2002/public_html/vizzdeo/updated-static-files/404_page.php on line 1
+[01-Oct-2017 16:53:13 UTC] PHP Warning:  include(): Failed opening 'header.php' for inclusion (include_path='.:/opt/alt/php56/usr/share/pear:/opt/alt/php56/usr/share/php') in /home/raviprasad2002/public_html/vizzdeo/updated-static-files/404_page.php on line 1
