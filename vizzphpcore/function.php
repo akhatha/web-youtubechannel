@@ -390,9 +390,9 @@ function branchDisplay($course)
 function user_exist($username,$password)
 {
 			$pass=md5($password);
-			$query=mysql_query("SELECT * FROM  users WHERE (name='$username' OR email='$username')AND password='$pass' ");
+			$query=mysql_query("SELECT * FROM  users WHERE (channel_name='$username' OR email='$username')AND password='$pass' ");
 			$user=	mysql_fetch_assoc($query);
-			$username= $user['name'];
+			$username= $user['channel_name'];
 			if(isset($username))
 			{
 				return $username;

@@ -13,7 +13,7 @@ if(isset($_POST['submit']))
 	if($userExist )
 	{
 		session_start();
-		$_SESSION['username'] = $_POST['username'];
+		$_SESSION['username'] = $_POST['email'];
 		header('Location:home.php');//if user exist it redirects to dashboard
 		
 	}
