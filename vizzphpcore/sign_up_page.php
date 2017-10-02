@@ -5,14 +5,17 @@ include('/config.php');
 
 if(isset($_POST['submit']))
 {
-	$username=$_POST['name'];
+	$username=$_POST['channel_name'];
+	$first_name=$_POST['first_name'];
+	$last_name=$_POST['last_name'];
 	$email=$_POST['email'];
 	$password=$_POST['password'];
 	$re_password=$_POST['re_password'];
 	$mobile=$_POST['mobile'];
+		$created_at=date('Y-m-d H:i:s');
 	$userExist=user_name_exist($username);//cheking user already exist or not
 	$mess=null;
- $data=array('name'=>$username,'email'=>$email,'password'=>md5($password),'user_type'=>'channel','mobile'=>$mobile);
+ $data=array('channel_name'=>$username,'created_at'=>$created_at,'first_name'=>$first_name,'last_name'=>$last_name,'email'=>$email,'password'=>md5($password),'user_type'=>'channel','mobile'=>$mobile);
 	
 	if(!$userExist )
 	{
@@ -73,8 +76,16 @@ if(isset($_POST['submit']))
         <div class="form-output">
         	<form method="POST" action="">
 			<div class="form-group label-floating">
-					<label class="control-label">Your Name</label>
-					<input class="form-control" placeholder="" type="text" name="name">
+					<label class="control-label">First Name</label>
+					<input class="form-control" placeholder="" type="text" name="first_name">
+				</div>
+				<div class="form-group label-floating">
+					<label class="control-label">Last Name</label>
+					<input class="form-control" placeholder="" type="text" name="last_name">
+				</div>
+			<div class="form-group label-floating">
+					<label class="control-label">Channel Name</label>
+					<input class="form-control" placeholder="" type="text" name="channel_name">
 				</div>
 					<?php if(isset($mess)){echo $mess;}?>
 				<div class="form-group label-floating">
