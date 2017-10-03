@@ -20,7 +20,7 @@ if (isset($_POST['video_submit'])) {
     $video = '';
 
     if (isset($_FILES["fileToUpload"]["name"])) {
-
+        $date = date('Y-m-d');
         $videoExt = pathinfo($_FILES["fileToUpload"]["name"], PATHINFO_EXTENSION);
         $size = $_FILES["fileToUpload"]['size'];
         $file_size = number_format($size / 1048576, 2); //get video size
@@ -44,21 +44,40 @@ if (isset($_POST['video_submit'])) {
             'video_type' => $videoExt,
             'video_duration' => $time,
             'mb_used' => $file_size,
-            'status' => 0
+            'status' => 0,
+            'created_date' => $date,
         );
-        $result = dbRowInsert('uploaded_videos', $data);
-        if ($result) {
-            $mess = "<div class='alert alert-success fade in' id='success'>
+        $getuploaLimit = mysql_query("SELECT SUM(`mb_used`) as total_mb FROM `uploaded_videos` WHERE `channel_id`='$channelId' AND `created_date` ='$date'");
+        while ($rows = mysql_fetch_assoc($getuploaLimit)) {
+
+            $totalMb = $rows['total_mb'];
+        }
+         $getuploaLimit = mysql_query("SELECT value FROM `config` WHERE `name`='video_name'");
+        while ($upload = mysql_fetch_assoc($getuploaLimit)) {
+
+            $totalval = $upload['value'];
+        }
+        
+        if ($totalMb < $totalval) {
+            $result = dbRowInsert('uploaded_videos', $data);
+            if ($result) {
+                $mess = "<div class='alert alert-success fade in' id='success'>
 						<strong>Success!</strong> Sucessfully Inserted.
 						</div>";
-            header("Refresh: 1;upload.php");
+                header("Refresh: 1;upload.php");
+            } else {
+                $mess = "<div class='alert alert-danger fade in' id='success'>
+										<strong>Danger! </strong> Something went wrong, go back and try again!
+										</div>";
+                header("Refresh: 1;upload.php");
+            }
+            $last_id = mysql_insert_id();
         } else {
             $mess = "<div class='alert alert-danger fade in' id='success'>
-										<strong>Danger! </strong> Something went wrong, go back and try again!
+										<strong>Danger! </strong>... Your upload limit exceeded ...
 										</div>";
             header("Refresh: 1;upload.php");
         }
-        $last_id = mysql_insert_id();
     }
 }
 ?>
@@ -117,9 +136,11 @@ if (isset($_POST['video_submit'])) {
             <!-- upload -->
             <div class="col-md-8">
                 <h1 class="page-title"><span>Upload</span> Video</h1>
-                <div class="mess" ><?php if (isset($mess)) {
+                <div class="mess" ><?php
+if (isset($mess)) {
     echo $mess;
-} ?></div>
+}
+?></div>
 
                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
 
