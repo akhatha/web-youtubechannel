@@ -179,7 +179,7 @@ if (isset($mess)) {
                          </div>-->
                         <div class="col-md-6">
                             <label>Video upload</label>
-                            <input type="file" name="fileToUpload" id="fileToUpload"  >
+                            <input type="file" name="fileToUpload" id="fileToUpload"  accept="video/*">
                         </div>
                         <input type="hidden" name="f_du" id="f_du" size="5" /> 
                         <!-- <div class="col-md-12">
@@ -227,7 +227,7 @@ if (isset($mess)) {
     document.getElementById('fileToUpload').addEventListener('change', function (e) {
         var file = e.currentTarget.files[0];
         //check file extension for audio/video type
-        if (file.name.match(/\.(avi|mp3|mp4|mpeg|ogg|flv)$/i)) {
+        if (file.name.match(/\.(avi|mp3|mp4|wmv|mpeg|ogg|flv)$/i)) {
             obUrl = URL.createObjectURL(file);
             document.getElementById('audio').setAttribute('src', obUrl);
         }
