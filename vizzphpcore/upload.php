@@ -59,6 +59,7 @@ if (isset($_POST['video_submit'])) {
         }
         
         if ($totalMb < $totalval) {
+			
             $result = dbRowInsert('uploaded_videos', $data);
             if ($result) {
                 $mess = "<div class='alert alert-success fade in' id='success'>
@@ -70,8 +71,15 @@ if (isset($_POST['video_submit'])) {
 										<strong>Danger! </strong> Something went wrong, go back and try again!
 										</div>";
                 header("Refresh: 1;upload.php");
+				
             }
             $last_id = mysql_insert_id();
+			$saveHistory = array(
+            'video_id' => $last_id,
+            'channel_id' => $channelId,
+            
+        );
+			dbRowInsert('history', $saveHistory);
         } else {
             $mess = "<div class='alert alert-danger fade in' id='success'>
 										<strong>Danger! </strong>... Your upload limit exceeded ...
