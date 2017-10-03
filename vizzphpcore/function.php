@@ -259,7 +259,7 @@ function uploadFile($target_file)
 			$uploadOk = 0;
 		}
 		
-		if($imageFileType != "mp4" && $imageFileType != "mp3"&& $imageFileType != "MP4"&& $imageFileType != "wmv" && $imageFileType != "WMV") 
+		if($imageFileType != "mp4" && $imageFileType != "MP4"&& $imageFileType != "wmv" && $imageFileType != "WMV") 
 		{
 			echo "sorry wrong file uploaded.";
 			$uploadOk = 0;
