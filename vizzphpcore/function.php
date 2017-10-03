@@ -17,18 +17,18 @@ function dbRowInsert($table_name, $form_data)
 
 
 //function for displaying data
-function displayResult($table_name)
+function displayResult($table_name,$id)
 {
-	$query=mysql_query("SELECT * FROM $table_name ORDER BY id desc");
-	  if(mysql_num_rows($query)>0)
-        {
+	$query=mysql_query("SELECT * FROM $table_name ORDER BY $id desc");
+	
+	  
 			while($row=mysql_fetch_assoc($query))
 			{
 						
 						$result[]=$row;
 			}
 			return $result;
-	}
+	
 }
 //function for displaying all the event information
 /*function displayEvent()
