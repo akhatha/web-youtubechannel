@@ -113,8 +113,8 @@ if (isset($_POST['video_submit'])) {
         var video = document.getElementById('video');
 
         var canvas = document.createElement("canvas");
-        canvas.width = 100;
-        canvas.height = 100;
+        canvas.width = 250;
+        canvas.height = 150;
         canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
         canvasData = canvas.toDataURL("image/png");
         thumb(canvasData);
