@@ -1,10 +1,11 @@
 <?php
+ob_start();
 include "header.php";
 include('function.php');
 include('config.php');
 
 if (isset($_POST['video_submit'])) {
-    
+
     $email = $_SESSION['username'];
     $getChannnelDetails = mysql_query("SELECT c.channel_id  FROM users as u 
 							 JOIN channel_details c ON c.user_id=u.id WHERE u.email = '$email'
@@ -46,6 +47,17 @@ if (isset($_POST['video_submit'])) {
             'status' => 0
         );
         $result = dbRowInsert('uploaded_videos', $data);
+        if ($result) {
+            $mess = "<div class='alert alert-success fade in' id='success'>
+						<strong>Success!</strong> Sucessfully Inserted.
+						</div>";
+            header("Refresh: 1;upload.php");
+        } else {
+            $mess = "<div class='alert alert-danger fade in' id='success'>
+										<strong>Danger! </strong> Something went wrong, go back and try again!
+										</div>";
+            header("Refresh: 1;upload.php");
+        }
         $last_id = mysql_insert_id();
     }
 }
@@ -56,7 +68,7 @@ if (isset($_POST['video_submit'])) {
 <video width="320" height="240" controls id="video" style="display:none">
     <source src="<?php echo $url; ?>" type="video/mp4">
 </video>
- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> 
 <script type="text/javascript">
 
     var time = 15;
@@ -84,12 +96,12 @@ if (isset($_POST['video_submit'])) {
 
     function thumb(canvasData)
     {
-        var siteUrl="<?php echo SITE_URL;?>";
-	
+        var siteUrl = "<?php echo SITE_URL; ?>";
+
         var thumb = canvasData;
         var id = document.getElementById('hiddenId').value;
         $.post(
-                siteUrl+"createthumb.php",
+                siteUrl + "createthumb.php",
                 {name: thumb, id: id},
                 function (data) {
 
@@ -105,6 +117,9 @@ if (isset($_POST['video_submit'])) {
             <!-- upload -->
             <div class="col-md-8">
                 <h1 class="page-title"><span>Upload</span> Video</h1>
+                <div class="mess" ><?php if (isset($mess)) {
+    echo $mess;
+} ?></div>
 
                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
 
