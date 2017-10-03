@@ -17,18 +17,18 @@ function dbRowInsert($table_name, $form_data)
 
 
 //function for displaying data
-function displayResult($table_name)
+function displayResult($table_name,$id)
 {
-	$query=mysql_query("SELECT * FROM $table_name ORDER BY id desc");
-	  if(mysql_num_rows($query)>0)
-        {
+	$query=mysql_query("SELECT * FROM $table_name ORDER BY $id desc");
+	
+	  
 			while($row=mysql_fetch_assoc($query))
 			{
 						
 						$result[]=$row;
 			}
 			return $result;
-	}
+	
 }
 //function for displaying all the event information
 /*function displayEvent()
@@ -252,14 +252,14 @@ function uploadFile($target_file)
 
 		$uploadOk = 1;
 		 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-		
+		//echo "target_file".$imageFileType;exit;
 		if (file_exists($target_file))
 		{
 			echo "Sorry, file already exists.";
 			$uploadOk = 0;
 		}
 		
-		if($imageFileType != "jpg" && $imageFileType != "JPG" && $imageFileType != "png" && $imageFileType != "PNG" && $imageFileType != "jpeg" && $imageFileType != "JPEG" && $imageFileType != "gif" && $imageFileType != "GIF" && $imageFileType != "mp4" && $imageFileType != "MP4" && $imageFileType != "wmv" && $imageFileType != "WMV") 
+		if($imageFileType != "mp4" && $imageFileType != "MP4"&& $imageFileType != "wmv" && $imageFileType != "WMV") 
 		{
 			echo "sorry wrong file uploaded.";
 			$uploadOk = 0;
@@ -272,7 +272,7 @@ function uploadFile($target_file)
 		} 
 		else
 		{
-			if (!move_uploaded_file($_FILES["fileToImageUpload"]["tmp_name"], $target_file))
+			if (!move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file))
 			{
 				echo "Sorry, there was an error uploading your file.";
 			}
@@ -465,6 +465,19 @@ function updateName($tableName,$data,$id)
 				return $sql;
 		
 }
+function updateVideo($tableName,$data,$id)
+{
+				
+				 $cols = array();
+				foreach($data as $key=>$val) 
+				{
+					$cols[] = "$key = '$val'";
+				}
+				$sql = mysql_query("UPDATE $tableName SET " . implode(', ', $cols) . " WHERE video_id=$id");
+			
+				return $sql;
+		
+}
 
 //updateuser if devide id already exist		
 function UpdateUser($regId,$create_date,$devide_id)
@@ -633,4 +646,6 @@ function send_push_notification_ios($registration_ids, $message)
 	
 			
 }
+
+
 ?>
