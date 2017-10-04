@@ -180,7 +180,7 @@
                             <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu account-menu">
-                           <li><a href="#"><i class="fa fa-edit color-1"></i>Edit profile</a></li>
+                           <li><a href="edit_profile.php"><i class="fa fa-edit color-1"></i>Edit profile</a></li>
                            <li><a href="upload.php"><i class="fa fa-video-camera color-2"></i>add video</a></li>
                            <li><a href="#"><i class="fa fa-star color-3"></i>Favorites</a></li>
                            <li><a href="logout.php"><i class="fa fa-sign-out color-4"></i>sign out</a></li>
@@ -219,7 +219,7 @@
                 	<li><a href="upload.php"><i class="fa fa-upload"></i>upload</a></li>
                 </ul>
             	<ul class="menu-sidebar">
-                	<li><a href="#"><i class="fa fa-edit"></i>edit profile</a></li>
+                	<li><a href="edit_profile.php"><i class="fa fa-edit"></i>edit profile</a></li>
                 	<li><a href="logout.php"><i class="fa fa-sign-out"></i>sign out</a></li>
                 </ul>
             	<ul class="menu-sidebar">

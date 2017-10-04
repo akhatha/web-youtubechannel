@@ -9,7 +9,8 @@ $db = mysql_select_db(DB_DATABASE) or die(mysql_error()) or die(mysql_error());
 define("STATUS", "success");
 
 
-define("SITE_URL",$_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST']);
-
+define("SITE_URL",$_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST']."/vizzdeo/vizzphpcore/");
+define("THUMB_URL",$_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST']."/vizzdeo/vizzphpcore/uploads/thumb_video/");
+define("VIDEO_URL",$_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST']."/vizzdeo/vizzphpcore/uploads/videos/");
 
 ?>

@@ -84,7 +84,7 @@ if(isset($_POST['submit']))
 					<input class="form-control" placeholder="" type="text" name="last_name">
 				</div>
 			<div class="form-group label-floating">
-					<label class="control-label">Channel Name</label>
+					<label class="control-label">User Name</label>
 					<input class="form-control" placeholder="" type="text" name="channel_name">
 				</div>
 					<?php if(isset($mess)){echo $mess;}?>

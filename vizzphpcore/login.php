@@ -14,8 +14,9 @@ if(isset($_POST['submit']))
 	{
 		session_start();
 		$_SESSION['username'] = $_POST['username'];
-		header('Location:dashboard.php');//if user exist it redirects to dashboard
 		
+		header('Location:dashboard.php');//if user exist it redirects to dashboard
+			
 	}
 	else
 	{
