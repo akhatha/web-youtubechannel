@@ -196,11 +196,11 @@
         	<div class="row">
                 <div class="col-md-12">
                     <ul class="main-category-menu">
-                       <li class="color-1"><a href="music.html"><i class="fa fa-music"></i>Music</a></li>
-                        <li class="color-2"><a href="sports.html"><i class="fa fa-soccer-ball-o"></i>Sports</a></li>
-                        <li class="color-3"><a href="gaming.html"><i class="fa fa-gamepad"></i>Gaming</a></li>
-                        <li class="color-4"><a href="news.html"><i class="fa fa-globe"></i>News</a></li>
-                        <li class="color-1"><a href="live.html"><i class="fa fa-play-circle-o"></i>Live</a></li>
+                       <li class="color-1"><a href="category_videos.php?category=music"><i class="fa fa-music"></i>Music</a></li>
+                        <li class="color-2"><a href="category_videos.php?category=sports"><i class="fa fa-soccer-ball-o"></i>Sports</a></li>
+                        <li class="color-3"><a href="category_videos.php?category=gaming"><i class="fa fa-gamepad"></i>Gaming</a></li>
+                        <li class="color-4"><a href="category_videos.php?category=news"><i class="fa fa-globe"></i>News</a></li>
+                        <li class="color-1"><a href="category_videos.php?category=live"><i class="fa fa-play-circle-o"></i>Live</a></li>
                     </ul>
                 </div><!-- // col-md-14 -->
               </div><!-- // row -->
