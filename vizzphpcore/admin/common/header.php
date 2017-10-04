@@ -25,6 +25,7 @@ if(!isset($_SESSION['username']))
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
     <link rel="stylesheet" href="css/style.css">
 	<link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	
 
 </head>
@@ -56,7 +57,7 @@ if(!isset($_SESSION['username']))
         <div class="navbar-right">
             <ul class="nav navbar-nav no-borders">
                 <li class="dropdown">
-                    <a href="login.html">
+                    <a href="category.php">
                         <i class="pe-7s-upload pe-rotate-90"></i>
                     </a>
                 </li>
@@ -82,7 +83,7 @@ if(!isset($_SESSION['username']))
      <ul class="nav" id="side-menu">
          
            <li class="active">
-                <a href="#"><span class="nav-label"> <i class="fa fa-group"></i>          Masters</span><span class="fa arrow"></span> </a>
+                <a href="#"><span class="nav-label"> <i class="fa fa-group"></i>Masters</span><span class="fa arrow"></span> </a>
                 <ul class="nav nav-second-level">
                     <li><a href="category.php">Category</a></li>
                   

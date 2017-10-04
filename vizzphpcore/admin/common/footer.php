@@ -1,10 +1,9 @@
 
 <script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-
 
 
 <script>
@@ -12,7 +11,7 @@
     $(function () {
 
         // Initialize Example 1
-        $('#example1').dataTable( {
+        $('#example2').dataTable( {
             "ajax": 'api/datatables.json',
             dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>tp",
             "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
@@ -25,8 +24,8 @@
         });
 
         // Initialize Example 2
-        $('#example2').dataTable();
-
+        $('#categoryTable').dataTable();
+		$('#signup_users').dataTable();
     });
 
 </script>

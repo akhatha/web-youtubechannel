@@ -62,18 +62,21 @@ function getName($tableName,$fieldName,$value)
 		
 }
 
-function displayRevenues($table_name)
-{
-	$query=mysql_query("SELECT subscription.amount,channel_details.channel_name FROM subscription INNER JOIN channel_details ON subscription.channel_id = channel_details.channel_id  );
-	  if(mysql_num_rows($query)>0)
-        {
-			while($row=mysql_fetch_assoc($query))
-			{
+// function displayRevenues($table_name)
+// {
+	// $query=mysql_query("SELECT subscription.amount,channel_details.channel_name FROM subscription INNER JOIN channel_details ON subscription.channel_id = channel_details.channel_id  );
+	  // if(mysql_num_rows($query)>0)
+        // {
+			// while($row=mysql_fetch_assoc($query))
+			// {
 						
-						$result[]=$row;
-			}
-			return $result;
-	}
-}
+						// $result[]=$row;
+			// }
+			// return $result;
+	// }
+// }
+
+
+//common function for updating data
 
 ?>

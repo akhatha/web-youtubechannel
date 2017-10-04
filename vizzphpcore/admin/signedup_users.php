@@ -50,7 +50,7 @@ include('../config.php');
                    
                 </div>
                 <div class="panel-body">
-                <table id="example2" class="table table-striped table-bordered table-hover">
+                <table id="signup_users" class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
                     <th>FirstName</th>
@@ -70,25 +70,31 @@ include('../config.php');
                           foreach($selectCategory as $row)
                                 {
 								?>
-										<tr data-user-id=<?php echo $row['id']?>>
-										<?php
-											   echo '<td class="hidden-xs">'.$row['id'].'</td>
-											   <td class="hidden-xs">'.$row['first_name'].'</td>
-											   <td class="hidden-xs">'.$row['last_name'].'</td>
-											   <td class="hidden-xs">'.$row['email'].'</td>
-											   <td class="hidden-xs">'.$row['mobile'].'</td>
-											  <td> <form method="get" class="form-horizontal"><div ><label class="col-sm-6 control-label">Select</label>
-											<div class="col-sm-6"><select class="form-control m-b" name="account">
-												<option>Activate</option>
-												<option>Deactivate</option>
+										<tr data-user-id=<?php echo $row['id']?> id="<?php echo $row['id']?>">
+										<td class="hidden-xs"><?php echo $row['first_name']?></td>
+											   <td class="hidden-xs"><?php echo $row['last_name']?></td>
+											   <td class="hidden-xs"><?php echo $row['email']?></td>
+											   <td class="hidden-xs"><?php echo $row['mobile']?></td>
+											   
+											  <td> <form method="get" class="form-horizontal"><div >
+											<div class="col-sm-6">
+											<select id="status" class="form-control m-b " name="account" onchange="saveChanges(<?php echo $row['id']?>)">
+											
+											<option value="">Select</option>
+												<option <?php if($row['status']==1)  {
+												echo 'Selected'; 
+												}?> value="1">Activate</option>
+												<option <?php if($row['status']==0)  {
+												echo 'Selected'; 
+												}?> value="0">Deactivate</option>
 												
 											</select>
 											</div>
 										</div>
 										</form></td>
 								  
-										</tr>';
-										$i++;
+										</tr>
+								<?php		$i++;
                                }
 							   }
 							   
@@ -113,4 +119,25 @@ include('../config.php');
 
 </div>
 <?php include "common/footer.php" ?>
+<script type="text/javascript">
 
+function saveChanges(userid){
+	
+	var userstatus= document.getElementById('status').value;
+	//alert(userstatus);
+	
+    $.ajax({
+        url: 'statusupdate.php',
+		type:'POST',
+        data: {status:userstatus,id:userid},
+        cache: false,
+        error: function(e){
+            alert(e);
+        },
+        success: function(data){
+            //A response to say if it's updated or not
+              location.reload();
+        }
+    });   
+}
+</script>
