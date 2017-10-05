@@ -6,7 +6,7 @@ include('/config.php');
  $val = $_GET['category'];
 $getChannnelDetails = mysql_query("SELECT * FROM `_category`");
 
-while ($row = mysqli_fetch_assoc($getChannnelDetails)) {
+while ($row = mysql_fetch_assoc($getChannnelDetails)) {
     $catName = $row['category_name'];
     //$catId = $row['category_id'];
     if ($catName == $val) {
@@ -32,7 +32,7 @@ while ($row = mysqli_fetch_assoc($getChannnelDetails)) {
                     <?php
 						
 							
-$getcategory = mysql_query($con,"SELECT * FROM `uploaded_videos` u LEFT JOIN _category c on 
+$getcategory = mysql_query("SELECT * FROM `uploaded_videos` u LEFT JOIN _category c on 
     u.category_id=c.category_id where category_name='$val'");
 
 while ($rows = mysql_fetch_assoc($getcategory)) {
@@ -57,7 +57,7 @@ while ($rows = mysql_fetch_assoc($getcategory)) {
                             <div class="thumb">
                                 <div class="hover-efect"></div>
                                 <small class="time"><?php echo $video_duration ?></small>
-                                <a href="<?php echo VIDEO_URL.$row['video_name'];?>"><img src="<?php echo THUMB_URL.$row['thubnail_name'];?>" alt=""></a>
+                                <a href="<?php echo VIDEO_URL.$rows['video_name'];?>"><img src="<?php echo THUMB_URL.$rows['thubnail_name'];?>" alt=""></a>
                             </div>
                             <div class="video-info">
                                 <a href="#" class="title"><?php echo $video_title ?></a>

@@ -12,8 +12,8 @@
                         <div class="col-md-8">
                             <ul class="nav nav-tabs">
                               <li class="active"><a data-toggle="tab" href="#watch-history">Watch history</a></li>
-                              <li><a data-toggle="tab" href="#search-history">Search history</a></li>
-                              <li><a data-toggle="tab" href="#comments">Comments</a></li>
+                            <!--  <li><a data-toggle="tab" href="#search-history">Search history</a></li>
+                              <li><a data-toggle="tab" href="#comments">Comments</a></li>-->
                             </ul>
                         </div><!-- // col-md-8 -->
                         <div class="col-md-4">
@@ -198,13 +198,13 @@
 
                   </div><!-- // watch-history -->
 
-                  <div id="search-history" class="tab-pane fade">
+                 <!-- <div id="search-history" class="tab-pane fade">
 
                   </div>
 
                   <div id="comments" class="tab-pane fade">
 
-                  </div>
+                  </div>-->
 
                 </div><!-- // tab-content -->
 
