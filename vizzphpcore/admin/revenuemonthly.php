@@ -46,44 +46,40 @@ include('../config.php');
                    
                 </div>
                 <div class="panel-body">
-                <table id="example2" class="table table-striped table-bordered table-hover">
+                <table id="monthlyRevenue" class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
                     <th>Name</th>
-                   
                     <th>Email</th>
                      <th>Subscribed Channel NAme</th>
-					         <th>Amount</th>
-					   <th></th>
+					 <th>Amount</th>
+					   
                 </tr>
                 </thead>
-                <tbody>
-                     <?php
-                          $table_name='subscription,channel_details,users';
-                          $selectRevenues=displayRevenues($table_name);
-						  $i=1;
-						  if($selectRevenues)
-						  {
-                          foreach($selectRevenues as $row)
+               
+                     <tbody>
+				  <?php
+							$getRevenue=  displayMonthlyRevenue();
+							  $i=1;
+							  if($getRevenue){
+							    foreach($getRevenue as $row)
                                 {
-								?>
-										<tr data-user-id=<?php echo $row['subscription_id']?>>
-										<?php
-											   echo '<td class="hidden-xs">'.$row['subscription_id'].'</td>
-											   <td class="hidden-xs">'.$row['first_name'].'</td>
-											   <td class="hidden-xs">'.$row['email'].'</td>
-											   <td class="hidden-xs">'.$row['channel_id'].'</td>
-											   <td class="hidden-xs">'.$row['amount'].'</td>
-											  
-								  
-										</tr>';
+									?>
+									<tr data-user-id=<?php echo $row['id']?>>
+									<?php
+											echo ' 
+											<td class="hidden-xs">'.$row['first_name'].'</td>
+											<td class="hidden-xs">'.$row['email'].'</td>
+											<td class="hidden-xs">'.$row['channel_name'].'</td>
+											<td class="hidden-xs">'.$row['amount'].'</td>
+									 </tr>';
 										$i++;
-                               }
-							   }
-							   
-							   ?>
-                            
-                </tbody>
+								}}
+								?>
+							
+							
+						</tbody>
+                
                 </table>
 
                 </div>

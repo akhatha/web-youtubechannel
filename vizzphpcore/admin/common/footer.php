@@ -26,6 +26,7 @@
         // Initialize Example 2
         $('#categoryTable').dataTable();
 		$('#signup_users').dataTable();
+		$('#monthlyRevenue').dataTable();
     });
 
 </script>
