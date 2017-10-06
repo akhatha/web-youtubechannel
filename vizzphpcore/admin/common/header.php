@@ -22,10 +22,11 @@ if(!isset($_SESSION['username']))
 
     <!-- Vendor styles -->
     <link rel="stylesheet" href="font-awesome/css/font-awesome.css" />
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
     <link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/custom.css">
 	<link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
 	
 
 </head>
@@ -57,10 +58,14 @@ if(!isset($_SESSION['username']))
         <div class="navbar-right">
             <ul class="nav navbar-nav no-borders">
                 <li class="dropdown">
-                    <a href="category.php">
-                        <i class="pe-7s-upload pe-rotate-90"></i>
-                    </a>
+                    <a style="font-size:15px;" href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>&nbsp;&nbsp;<?php echo $_SESSION['username']; ?><b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        </li>
+                    </ul>
                 </li>
+				
             </ul>
         </div>
     </nav>
@@ -70,20 +75,16 @@ if(!isset($_SESSION['username']))
 <aside id="menu">
     <div id="navigation">
         <div class="profile-picture">
-         
             <div class="stats-label text-color">
                 <span class="font-extra-bold font-uppercase">Vizzdeo</span>
-
-
-
-           
             </div>
+			
         </div>
 
      <ul class="nav" id="side-menu">
          
            <li class="active">
-                <a href="#"><span class="nav-label"> <i class="fa fa-group"></i>Masters</span><span class="fa arrow"></span> </a>
+                <a href="#"><span class="nav-label"> <i class="fa fa-group"></i>  Masters</span><span class="fa arrow"></span> </a>
                 <ul class="nav nav-second-level">
                     <li><a href="category.php">Category</a></li>
                   
@@ -100,9 +101,11 @@ if(!isset($_SESSION['username']))
             <li>
                 <a href="revenuemonthly.php"> <span class="nav-label"><i class="fa fa-money"></i> Revenue Monthly</span></a>
             </li>
-
+			<li>
+                <a href="latestvideo.php"> <span class="nav-label"><i class="fa fa-money"></i> Latest Video Upload</span></a>
+            </li>
           
-
+  
         </ul>
     </div>
 </aside>
