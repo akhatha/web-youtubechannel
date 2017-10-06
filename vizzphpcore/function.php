@@ -418,6 +418,25 @@ function user_name_exist($username)
 				return false;
 			}			
 }
+
+
+//checking user laready exist based on username ,email and pwd	
+function user_data($username,$pass)
+{
+			$pass=md5($pass);
+			$query=mysql_query("SELECT * FROM  users WHERE (channel_name='$username' OR email='$username')AND password='$pass'");
+			$user=	mysql_fetch_assoc($query);
+                        $userid= $user['id'];
+			if(isset($userid))
+			{
+				return $userid;
+			}
+			else
+			{		
+				return false;
+			}			
+}
+
 //common function for selecting name and value
 function getName($tableName,$fieldName,$value)
 {

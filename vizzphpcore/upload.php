@@ -7,14 +7,15 @@ include('config.php');
 if (isset($_POST['video_submit'])) {
 
     $email = $_SESSION['username'];
-    $getChannnelDetails = mysql_query("SELECT c.channel_id  FROM users as u 
+   /* $getChannnelDetails = mysql_query("SELECT c.channel_id  FROM users as u 
 							 JOIN channel_details c ON c.user_id=u.id WHERE u.email = '$email'
 							 ");
 
     while ($row = mysql_fetch_assoc($getChannnelDetails)) {
 
         $channelId = $row['channel_id'];
-    }
+    }*/
+    $channelId = $_SESSION['user_id'];
 
     $target_dir = "uploads/videos/";
     $video = '';
@@ -79,7 +80,7 @@ if (isset($_POST['video_submit'])) {
             'channel_id' => $channelId,
             
         );
-			dbRowInsert('history', $saveHistory);
+			//dbRowInsert('history', $saveHistory);
         } else {
             $mess = "<div class='alert alert-danger fade in' id='success'>
 										<strong>Danger! </strong>... Your upload limit exceeded ...

@@ -1,35 +1,30 @@
 <?php
-		session_start();
+session_start();
 include('/function.php');
 include('/config.php');
 
-if(isset($_POST['submit']))
-{
-	$username=$_POST['channel_name'];
-	$first_name=$_POST['first_name'];
-	$last_name=$_POST['last_name'];
-	$email=$_POST['email'];
-	$password=$_POST['password'];
-	$re_password=$_POST['re_password'];
-	$mobile=$_POST['mobile'];
-		$created_at=date('Y-m-d H:i:s');
-	$userExist=user_name_exist($username);//cheking user already exist or not
-	$mess=null;
- $data=array('channel_name'=>$username,'created_at'=>$created_at,'first_name'=>$first_name,'last_name'=>$last_name,'email'=>$email,'password'=>md5($password),'user_type'=>'channel','mobile'=>$mobile);
-	
-	if(!$userExist )
-	{
-	$result=dbRowInsert('users',$data);
-		$_SESSION['username'] = $username;
-		header('Location:home.php');//if user exist it redirects to dashboard
-		
-	}
-	else
-	{
-		$mess='user name already  exist';
-	}
+if (isset($_POST['submit'])) {
+    $username = $_POST['channel_name'];
+    $first_name = $_POST['first_name'];
+    $last_name = $_POST['last_name'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $re_password = $_POST['re_password'];
+    $mobile = $_POST['mobile'];
+    $created_at = date('Y-m-d H:i:s');
+    $userExist = user_name_exist($username); //cheking user already exist or not
+    $mess = null;
+    $data = array('channel_name' => $username, 'created_at' => $created_at, 'first_name' => $first_name, 'last_name' => $last_name, 'email' => $email, 'password' => md5($password), 'user_type' => 'channel', 'mobile' => $mobile);
 
-	
+    if (!$userExist) {
+        $result = dbRowInsert('users', $data);
+        $last_id = mysql_insert_id();
+        $_SESSION['user_id'] = $last_id;
+        $_SESSION['username'] = $username;
+        header('Location:home.php'); //if user exist it redirects to dashboard
+    } else {
+        $mess = 'user name already  exist';
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -65,69 +60,71 @@ if(isset($_POST['submit']))
     </head>
 
     <body class="sing-up-page">
-      <!--======= log_in_page =======-->
-      <div id="log-in" class="site-form log-in-form">
-      
-      	<div id="log-in-head">
-        	<h1>Sing Up</h1>
-            <div id="logo"><a href="index.html"><img src="images/logo.png" alt=""></a></div>
+        <!--======= log_in_page =======-->
+        <div id="log-in" class="site-form log-in-form">
+
+            <div id="log-in-head">
+                <h1>Sing Up</h1>
+                <div id="logo"><a href="index.html"><img src="images/logo.png" alt=""></a></div>
+            </div>
+
+            <div class="form-output">
+                <form method="POST" action="">
+                    <div class="form-group label-floating">
+                        <label class="control-label">First Name</label>
+                        <input class="form-control" placeholder="" type="text" name="first_name">
+                    </div>
+                    <div class="form-group label-floating">
+                        <label class="control-label">Last Name</label>
+                        <input class="form-control" placeholder="" type="text" name="last_name">
+                    </div>
+                    <div class="form-group label-floating">
+                        <label class="control-label">User Name</label>
+                        <input class="form-control" placeholder="" type="text" name="channel_name">
+                    </div>
+<?php if (isset($mess)) {
+    echo $mess;
+} ?>
+                    <div class="form-group label-floating">
+                        <label class="control-label">Your Email</label>
+                        <input class="form-control" placeholder="" type="email" name="email">
+                    </div>
+                    <div class="form-group label-floating">
+                        <label class="control-label">Your Password</label>
+                        <input class="form-control" placeholder="" type="password" name="password">
+                    </div>
+
+                    <div class="form-group label-floating">
+                        <label class="control-label">Confirm Your Password</label>
+                        <input class="form-control" placeholder="" type="password" name="re_password">
+                    </div>
+                    <div class="form-group label-floating">
+                        <label class="control-label">Mobile</label>
+                        <input class="form-control" placeholder="" type="text" name="mobile">
+                    </div>
+
+
+
+                    <div class="remember">
+                        <div class="checkbox">
+                            <label>
+                                <input name="optionsCheckboxes" type="checkbox">
+                                I accept the <a href="#">Terms and Conditions</a> of the website
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- <a href="home.html" class="btn btn-lg btn-primary full-width">Complete sign up !</a>-->
+
+                    <input class="btn btn-lg btn-primary full-width" type="submit" name="submit" value="Complete sign up !" required>
+
+
+                    <p>you have an account? <a href="log_in_page.php"> Sing in !</a> </p>
+                </form>
+            </div>
         </div>
-        
-        <div class="form-output">
-        	<form method="POST" action="">
-			<div class="form-group label-floating">
-					<label class="control-label">First Name</label>
-					<input class="form-control" placeholder="" type="text" name="first_name">
-				</div>
-				<div class="form-group label-floating">
-					<label class="control-label">Last Name</label>
-					<input class="form-control" placeholder="" type="text" name="last_name">
-				</div>
-			<div class="form-group label-floating">
-					<label class="control-label">User Name</label>
-					<input class="form-control" placeholder="" type="text" name="channel_name">
-				</div>
-					<?php if(isset($mess)){echo $mess;}?>
-				<div class="form-group label-floating">
-					<label class="control-label">Your Email</label>
-					<input class="form-control" placeholder="" type="email" name="email">
-				</div>
-				<div class="form-group label-floating">
-					<label class="control-label">Your Password</label>
-					<input class="form-control" placeholder="" type="password" name="password">
-				</div>
-                
-				<div class="form-group label-floating">
-					<label class="control-label">Confirm Your Password</label>
-					<input class="form-control" placeholder="" type="password" name="re_password">
-				</div>
-				<div class="form-group label-floating">
-					<label class="control-label">Mobile</label>
-					<input class="form-control" placeholder="" type="text" name="mobile">
-				</div>
-
-			
-                
-				<div class="remember">
-					<div class="checkbox">
-						<label>
-							<input name="optionsCheckboxes" type="checkbox">
-							I accept the <a href="#">Terms and Conditions</a> of the website
-						</label>
-					</div>
-				</div>
-                
-			 <!-- <a href="home.html" class="btn btn-lg btn-primary full-width">Complete sign up !</a>-->
-
-		<input class="btn btn-lg btn-primary full-width" type="submit" name="submit" value="Complete sign up !" required>
-
-
-				<p>you have an account? <a href="log_in_page.php"> Sing in !</a> </p>
-            </form>
-        </div>
-      </div>
-      <!--======= // log_in_page =======-->
-	</body>
+        <!--======= // log_in_page =======-->
+    </body>
 
 
 </html>
