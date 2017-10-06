@@ -1,11 +1,14 @@
 
 <script src="js/jquery.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/jquery.slimscroll.min.js"></script>
+<script src="js/metisMenu.min.js"></script>
+<script src="js/icheck.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-
-
+<script src="js/homer.js"></script>
 <script>
 
     $(function () {
@@ -30,5 +33,7 @@
     });
 
 </script>
+
+
 </body>
 </html>

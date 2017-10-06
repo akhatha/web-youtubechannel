@@ -2,7 +2,7 @@
 session_start();
 if($_SESSION['username'])
 {
-	header('location:dashboard.php');
+	header('location:category.php');
 }
 else
 {

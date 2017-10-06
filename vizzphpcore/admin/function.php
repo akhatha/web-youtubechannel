@@ -79,4 +79,20 @@ function displayMonthlyRevenue()
 			}
 }
 
+
+function displayLatestVideos()
+{
+			$query=mysql_query("SELECT v.video_title,v.video_name,v.channel_id,u.id,u.channel_name,v.status,v.video_id
+								FROM  uploaded_videos AS v
+								JOIN users u ON v.channel_id = u.id");
+			while($row=mysql_fetch_assoc($query))
+			{
+						
+						$result[]=$row;
+			}
+			if(!empty($result))
+			{
+				return $result;
+			}
+}
 ?>
