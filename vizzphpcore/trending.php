@@ -2,7 +2,7 @@
 ob_start();
 include "header.php";
 include('function.php');
-include('config.php');?>
+//include('config.php');?>
 
 
 

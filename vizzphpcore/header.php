@@ -1,4 +1,5 @@
 <?php session_start(); 
+include('config.php');
 
 //$usertype=$user['user_type'];
 
@@ -6,6 +7,19 @@ if(!isset($_SESSION['user_id']))
 {
 	header('location:log_in_page.php');
 }
+
+  $user_id=$_SESSION['user_id'];
+$getChannnelDetails = mysql_query("SELECT * FROM `users` where id=$user_id");
+while ($row = mysql_fetch_assoc($getChannnelDetails)) {
+     $first_name = $row['first_name'];
+     $last_name = $row['last_name'];
+     
+}
+$getChannnelDetail = mysql_query("SELECT count(*) as count FROM `subscription` WHERE `channel_id`=$user_id");
+while ($rows = mysql_fetch_assoc($getChannnelDetail)) {
+    $subscribers = $rows['count'];
+}
+
 ?>
 <!DOCTYPE html>
 
@@ -76,8 +90,8 @@ if(!isset($_SESSION['user_id']))
 					  <div class="dropdown">
                         <a data-toggle="dropdown" href="#" class="user-area">
                             <div class="thumb"><img src="images/user-1.png" alt=""></div>
-                            <h2>Rabie Elkheir</h2>
-                            <h3>25 subscribers</h3>
+                            <h2><?php echo $first_name.' '.$last_name?></h2>
+                            <h3><?php echo $subscribers; ?> subscribers</h3>
                             <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu account-menu">

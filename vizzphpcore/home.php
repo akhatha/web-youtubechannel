@@ -1,7 +1,7 @@
  <?php
  //session_start();
 include('header.php');
-include('config.php');
+//include('config.php');
 
 ?>
 <?php //echo $_SESSION['username']; ?>

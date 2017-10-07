@@ -1,7 +1,7 @@
 <?php
 include "header.php";
 include('/function.php');
-include('/config.php');
+//include('/config.php');
 
  $val = $_GET['category'];
 $getChannnelDetails = mysql_query("SELECT * FROM `_category`");

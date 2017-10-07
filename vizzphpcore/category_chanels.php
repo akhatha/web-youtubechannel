@@ -1,7 +1,7 @@
 <?php
 include "header.php";
 include('/function.php');
-include('/config.php');?>
+//include('/config.php');?>
 <div id="all-output" class="col-md-10">
     <!-- Category Cover Image -->
     <!-- // Category Cover Image -->
