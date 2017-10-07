@@ -25,7 +25,7 @@ include('config.php');?>
             <!-- category -->
             <div id="category">
             	<div class="row">
-                    <div class="col-md-2">
+                   <!-- <div class="col-md-2">
                         <ul class="category-menu">
                             <li class="active"><a href="home.html">Home</a></li>
                             <li><a href="category_videos.html">videos</a></li>
@@ -65,7 +65,7 @@ include('config.php');?>
 							 JOIN channel_details c ON c.channel_id=u.channel_id
 							WHERE status=1
 							 ");
-							while ($row = mysql_fetch_assoc($getChannnelDetails)) {
+							//while ($row = mysql_fetch_assoc($getChannnelDetails)) {
 							?>
                             <div class="col-lg-4 col-md-4 col-sm-6">
                                 <div class="video-item">
@@ -89,7 +89,7 @@ include('config.php');?>
                             <!-- // video-item -->
 
 <?php     
-    }
+    //}
 	?>
                            
 
@@ -98,82 +98,8 @@ include('config.php');?>
                         </div><!-- // row -->
 
 
-                        <h1 class="new-video-title"><i class="fa fa-bolt"></i> Trending</h1>
-                        <div class="row">
 
-                            <!-- video-item -->
-                            <div class="col-lg-4 col-md-4 col-sm-6">
-                                <div class="video-item">
-                                    <div class="thumb">
-                                        <div class="hover-efect"></div>
-                                        <small class="time">10:53</small>
-                                        <a href="#"><img src="images/v4.png" alt=""></a>
-                                    </div>
-                                    <div class="video-info">
-                                        <a href="#" class="title">Lorem Ipsum is simply dummy text of the printing and </a>
-                                        <a class="channel-name" href="#">Rabie Elkheir<span>
-                                        <i class="fa fa-check-circle"></i></span></a>
-                                        <span class="views"><i class="fa fa-eye"></i>2.8M views </span>
-                                        <span class="date"><i class="fa fa-clock-o"></i>5 months ago </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- // video-item -->
-
-
-                            <!-- video-item -->
-                            <div class="col-lg-4 col-md-4 col-sm-6">
-                                <div class="video-item">
-                                    <div class="thumb">
-                                        <div class="hover-efect"></div>
-                                        <small class="time">10:53</small>
-                                        <a href="#"><img src="images/v5.png" alt=""></a>
-                                    </div>
-                                    <div class="video-info">
-                                        <a href="#" class="title">Lorem Ipsum is simply dummy text of the printing and </a>
-                                        <a class="channel-name" href="#">Rabie Elkheir<span>
-                                        <i class="fa fa-check-circle"></i></span></a>
-                                        <span class="views"><i class="fa fa-eye"></i>2.8M views </span>
-                                        <span class="date"><i class="fa fa-clock-o"></i>5 months ago </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- // video-item -->
-
-
-                            <!-- video-item -->
-                            <div class="col-lg-4 col-md-4 col-sm-6">
-                                <div class="video-item">
-                                    <div class="thumb">
-                                        <div class="hover-efect"></div>
-                                        <small class="time">10:53</small>
-                                        <a href="#"><img src="images/v6.png" alt=""></a>
-                                    </div>
-                                    <div class="video-info">
-                                        <a href="#" class="title">Lorem Ipsum is simply dummy text of the printing and </a>
-                                        <a class="channel-name" href="#">Rabie Elkheir<span>
-                                        <i class="fa fa-check-circle"></i></span></a>
-                                        <span class="views"><i class="fa fa-eye"></i>2.8M views </span>
-                                        <span class="date"><i class="fa fa-clock-o"></i>5 months ago </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- // video-item -->
-
-
-
-                        </div><!-- // row -->
-
-
-                        <!-- Loading More Videos -->
-                        <div id="loading-more">
-                            <i class="fa fa-refresh faa-spin animated"></i> <span>Loading more</span>
-                        </div>
-                        <!-- // Loading More Videos -->
-
-                    </div>
-
-                    <div class="col-md-1">
+                 <!--   <div class="col-md-1">
                     	<div id="top-channels">
                         	<ul class="channels">
                             	<li><a href="#"><img src="images/c1.jpg" alt=""></a></li>
@@ -190,7 +116,7 @@ include('config.php');?>
                             	<li><a href="#"><img src="images/c4.jpg" alt=""></a></li>
                             </ul>
                         </div>
-                    </div>
+                    </div>-->
                 </div><!-- // row -->
             </div>
             <!-- // category -->

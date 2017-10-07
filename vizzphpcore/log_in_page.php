@@ -10,9 +10,15 @@ if(isset($_POST['submit']))
 	$mess=null;
  
 	
-	if($userExist )
+	if($userExist)
 	{
 		session_start();
+                $data=user_data($email,$password);
+             // echo "hi";  print_r($data);
+                //exit;
+                
+                $_SESSION['user_id']=$data;
+		
 		$_SESSION['username'] = $_POST['email'];
 		header('Location:home.php');//if user exist it redirects to dashboard
 		
