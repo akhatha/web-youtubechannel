@@ -19,15 +19,15 @@ include('../config.php');
                     <ol class="hbreadcrumb breadcrumb">
                         <li><a href="index.html">Dashboard</a></li>
                         <li>
-                            <span>Users</span>
+                            <span>Latest Video</span>
                         </li>
                         
                     </ol>
                 </div>
                 <h2 class="font-light m-b-xs">
-                    Users
+                    Latest Video
                 </h2>
-                <small>Add Users names</small>
+                <small>latest uploded videos</small>
             </div>
         </div>
     </div>
@@ -42,45 +42,43 @@ include('../config.php');
             
 
             <div class="hpanel">
-               
+                
                 <div class="panel-body">
                 <table id="signup_users" class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
-                    <th>FirstName</th>
-                    <th>LastNmae</th>
-                    <th>Email</th>
-                     <th>Mobile Number</th>
-					   <th></th>
+                    <th>Video Name</th>
+                    <th>Link</th>
+                    <th>Channel Name</th>
+					<th></th>
                 </tr>
                 </thead>
 				<tbody>
                      <?php
-                          $table_name='users';
-                          $selectCategory=displayResult($table_name);
+                          $getlatestVideo=  displayLatestVideos();
 						  $i=1;
-						  if($selectCategory)
+						  if($getlatestVideo)
 						  {
-                          foreach($selectCategory as $row)
+                          foreach($getlatestVideo as $row)
                                 {
 								?>
-										<tr data-user-id=<?php echo $row['id']?> id="<?php echo $row['id']?>">
-										<td class="hidden-xs"><?php echo $row['first_name']?></td>
-											   <td class="hidden-xs"><?php echo $row['last_name']?></td>
-											   <td class="hidden-xs"><?php echo $row['email']?></td>
-											   <td class="hidden-xs"><?php echo $row['mobile']?></td>
+										<tr data-user-id=<?php echo $row['video_id']?> id="<?php echo $row['video_id']?>">
+											   <td class="hidden-xs"><?php echo $row['video_title']?></td>
+											   <td class="hidden-xs"><a href="<?php echo SITE_URL ."/uploads/videos/" .$row['video_name']?>"><?php echo $row['video_name']?></a></td>
+											   <td class="hidden-xs"><?php echo $row['channel_name']?></td>
+											  
 											   
 											  <td> <form method="get" class="form-horizontal"><div >
 											<div class="col-sm-6">
-											<select id="status" class="form-control m-b " name="account" onchange="saveChanges(<?php echo $row['id']?>)">
+											<select id="status" class="form-control m-b " name="status" onchange="saveVideoStatus(<?php echo $row['video_id']?>)">
 											
 											<option value="">Select</option>
 												<option <?php if($row['status']==1)  {
 												echo 'Selected'; 
-												}?> value="1">Activate</option>
+												}?> value="1">Accept</option>
 												<option <?php if($row['status']==0)  {
 												echo 'Selected'; 
-												}?> value="0">Deactivate</option>
+												}?> value="0">Reject</option>
 												
 											</select>
 											</div>
@@ -115,15 +113,15 @@ include('../config.php');
 <?php include "common/footer.php" ?>
 <script type="text/javascript">
 
-function saveChanges(userid){
+function saveVideoStatus(userid){
 	
-	var userstatus= document.getElementById('status').value;
+	var videostatus= document.getElementById('status').value;
 	//alert(userstatus);
 	
     $.ajax({
-        url: 'statusupdate.php',
+        url: 'Videostatusupdate.php',
 		type:'POST',
-        data: {status:userstatus,id:userid},
+        data: {status:videostatus,id:userid},
         cache: false,
         error: function(e){
             alert(e);

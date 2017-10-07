@@ -38,13 +38,7 @@ include('../config.php');
             
 
             <div class="hpanel">
-                <div class="panel-heading">
-                    <div class="panel-tools">
-                        <a class="showhide"><i class="fa fa-chevron-up"></i></a>
-                        <a class="closebox"><i class="fa fa-times"></i></a>
-                    </div>
-                   
-                </div>
+                
                 <div class="panel-body">
                 <table id="monthlyRevenue" class="table table-striped table-bordered table-hover">
                 <thead>
