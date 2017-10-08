@@ -7,14 +7,7 @@ include('function.php');
 if (isset($_POST['video_submit'])) {
 
     $email = $_SESSION['username'];
-   /* $getChannnelDetails = mysql_query("SELECT c.channel_id  FROM users as u 
-							 JOIN channel_details c ON c.user_id=u.id WHERE u.email = '$email'
-							 ");
-
-    while ($row = mysql_fetch_assoc($getChannnelDetails)) {
-
-        $channelId = $row['channel_id'];
-    }*/
+   
     $channelId = $_SESSION['user_id'];
 
     $target_dir = "uploads/videos/";
@@ -88,14 +81,30 @@ if (isset($_POST['video_submit'])) {
             header("Refresh: 1;upload.php");
         }
     }
+	
 }
+
 ?>
 
 
 <input type="hidden" name="hiddenId" id="hiddenId" value="<?php echo $last_id; ?>">
+<?php if(isset($videoExt) =='mp4' || isset($videoExt) =='MP4'){?>
 <video width="320" height="240" controls id="video" style="display:none">
     <source src="<?php echo $url; ?>" type="video/mp4">
 </video>
+<?php }?>
+<?php if(isset($videoExt) =='ogv' ||isset($videoExt) =='ogg'){?>
+<video width="320" height="240" controls id="video" style="display:none">
+    <source src="<?php echo $url; ?>" type="video/ogg">
+</video>
+<?php }?>
+<?php if(isset($videoExt) =='webm' || isset($videoExt) =='WEBM'){?>
+<video width="320" height="240" controls id="video" style="display:none">
+    <source src="<?php echo $url; ?>" type="video/webm">
+</video>
+<?php }?>
+
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> 
 <script type="text/javascript">
 
