@@ -1,19 +1,19 @@
 <?php
-include('config.php');
+	include('config.php');
 	 $action=$_GET['action'];
 	switch($action)
- {
-		case 'updateprofiles': 
-					updateprofilesUpdate();
-		break;
-		case'changepassword':
-					changePasswordUpdate();
-		break;
+	 {
+			case 'updateprofiles': 
+						updateprofilesUpdate();
+			break;
+			case'changepassword':
+						changePasswordUpdate();
+			break;
 
-		default: 
-					echo 'No action found';
-		break;
-	 }	
+			default: 
+						echo 'No action found';
+			break;
+	}	
 
 	function updateprofilesUpdate()
 	{	 
