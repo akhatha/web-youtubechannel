@@ -115,14 +115,8 @@ if(isset($_POST['profile']))
 <h1 class="error-no">CONGRATULATIONS!!</h1><br/>
 <?php
 $getwalletDetails = mysql_query("SELECT sum(wallet_amount) as amount  FROM wallet WHERE channel_id = '$userId'");
-if(isset($getwalletDetails)){
 while ($wallet = mysql_fetch_assoc($getwalletDetails)) {
 	$amounts=$wallet['amount'];
-}
-}
-else
-{
-	$amounts='';
 }
 
 ?>
@@ -179,6 +173,7 @@ $( document ).ready(function() {
 		var lName = $('#lName').val();
 		var email = $('#email').val();
 		var mobile = $('#mobile').val();
+        //var id = document.getElementById('hiddenId').value;
         $.post(
                 siteUrl + "updateprofile.php?action=updateprofiles",
                 {uName: uName, fName: fName, lName: lName, email: email, mobile: mobile},
@@ -226,6 +221,7 @@ $( document ).ready(function() {
 		 }
 		 else
 		 {
+        //var id = document.getElementById('hiddenId').value;
         $.post(
                 siteUrl + "updateprofile.php?action=changepassword",
                 {pass: pass, cPass: cPass},

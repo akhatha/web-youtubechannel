@@ -2,23 +2,11 @@
 ob_start();
 include "header.php";
 include('function.php');
-include('config.php');
-
 if (isset($_POST['video_submit'])) {
-
-    $email = $_SESSION['username'];
-    $getChannnelDetails = mysql_query("SELECT c.channel_id  FROM users as u 
-							 JOIN channel_details c ON c.user_id=u.id WHERE u.email = '$email'
-							 ");
-
-    while ($row = mysql_fetch_assoc($getChannnelDetails)) {
-
-        $channelId = $row['channel_id'];
-    }
-
+    $email = $_SESSION['username']; 
+    $channelId = $_SESSION['user_id'];
     $target_dir = "uploads/videos/";
     $video = '';
-
     if (isset($_FILES["fileToUpload"]["name"])) {
         $date = date('Y-m-d');
         $videoExt = pathinfo($_FILES["fileToUpload"]["name"], PATHINFO_EXTENSION);
@@ -33,9 +21,7 @@ if (isset($_POST['video_submit'])) {
         $target_file = $target_dir . "" . $fileName;
         $videoupload = uploadFile($target_file); //upload a file if file doesnot exist
         $url = SITE_URL . "uploads/videos/" . $fileName;
-
         $VideoUrl = $fileName;
-
         $data = array(
             'channel_id ' => $channelId,
             'category_id' => $catSelect,
@@ -49,17 +35,13 @@ if (isset($_POST['video_submit'])) {
         );
         $getuploaLimit = mysql_query("SELECT SUM(`mb_used`) as total_mb FROM `uploaded_videos` WHERE `channel_id`='$channelId' AND `created_date` ='$date'");
         while ($rows = mysql_fetch_assoc($getuploaLimit)) {
-
             $totalMb = $rows['total_mb'];
         }
          $getuploaLimit = mysql_query("SELECT value FROM `config` WHERE `name`='video_name'");
         while ($upload = mysql_fetch_assoc($getuploaLimit)) {
-
             $totalval = $upload['value'];
-        }
-        
-        if ($totalMb < $totalval) {
-			
+        }    
+        if ($totalMb < $totalval) {			
             $result = dbRowInsert('uploaded_videos', $data);
             if ($result) {
                 $mess = "<div class='alert alert-success fade in' id='success'>
@@ -79,7 +61,7 @@ if (isset($_POST['video_submit'])) {
             'channel_id' => $channelId,
             
         );
-			dbRowInsert('history', $saveHistory);
+			//dbRowInsert('history', $saveHistory);
         } else {
             $mess = "<div class='alert alert-danger fade in' id='success'>
 										<strong>Danger! </strong>... Your upload limit exceeded ...
@@ -87,14 +69,30 @@ if (isset($_POST['video_submit'])) {
             header("Refresh: 1;upload.php");
         }
     }
+	
 }
+
 ?>
 
 
 <input type="hidden" name="hiddenId" id="hiddenId" value="<?php echo $last_id; ?>">
+<?php if(isset($videoExt) =='mp4' || isset($videoExt) =='MP4'){?>
 <video width="320" height="240" controls id="video" style="display:none">
     <source src="<?php echo $url; ?>" type="video/mp4">
 </video>
+<?php }?>
+<?php if(isset($videoExt) =='ogv' ||isset($videoExt) =='ogg'){?>
+<video width="320" height="240" controls id="video" style="display:none">
+    <source src="<?php echo $url; ?>" type="video/ogg">
+</video>
+<?php }?>
+<?php if(isset($videoExt) =='webm' || isset($videoExt) =='WEBM'){?>
+<video width="320" height="240" controls id="video" style="display:none">
+    <source src="<?php echo $url; ?>" type="video/webm">
+</video>
+<?php }?>
+
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> 
 <script type="text/javascript">
 
@@ -155,7 +153,7 @@ if (isset($mess)) {
                     <div class="row">
                         <div class="col-md-6">
                             <label>Post Title</label>
-                            <input name="pTitle" required="" type="text" class="form-control" placeholder="Post Title">
+                            <input required=""  name="pTitle" required="" type="text" class="form-control" placeholder="Post Title">
                         </div>
                         <div class="col-md-6">
                             <label>Post Category</label>
@@ -173,20 +171,11 @@ if (isset($mess)) {
                                 ?>
                             </select>
                         </div>
-                        <!-- <div class="col-md-6">
-                             <label>Post Tags</label>
-                             <input name="pTag" required="" type="text" class="form-control" placeholder="Post Tags">
-                         </div>-->
                         <div class="col-md-6">
                             <label>Video upload</label>
-                            <input type="file" name="fileToUpload" id="fileToUpload"  accept="video/*">
+                            <input required="" type="file" name="fileToUpload" id="fileToUpload"  accept="video/*">
                         </div>
                         <input type="hidden" name="f_du" id="f_du" size="5" /> 
-                        <!-- <div class="col-md-12">
-                             <label>Post Excerpt</label>
-                             <textarea name="pComment" required="" class="form-control" rows="4"  placeholder="COMMENT"></textarea>
-                         </div>-->
-
                         <div class="col-md-6">
                             <button type="submit" name="video_submit" id="video_submit" class="btn btn-dm">Save your post</button>
                         </div>
