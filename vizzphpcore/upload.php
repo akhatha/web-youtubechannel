@@ -153,7 +153,7 @@ if (isset($mess)) {
                     <div class="row">
                         <div class="col-md-6">
                             <label>Post Title</label>
-                            <input name="pTitle" required="" type="text" class="form-control" placeholder="Post Title">
+                            <input required=""  name="pTitle" required="" type="text" class="form-control" placeholder="Post Title">
                         </div>
                         <div class="col-md-6">
                             <label>Post Category</label>
@@ -173,7 +173,7 @@ if (isset($mess)) {
                         </div>
                         <div class="col-md-6">
                             <label>Video upload</label>
-                            <input type="file" name="fileToUpload" id="fileToUpload"  accept="video/*">
+                            <input required="" type="file" name="fileToUpload" id="fileToUpload"  accept="video/*">
                         </div>
                         <input type="hidden" name="f_du" id="f_du" size="5" /> 
                         <div class="col-md-6">
