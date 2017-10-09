@@ -17,7 +17,7 @@ include('../config.php');
 
                 <div id="hbreadcrumb" class="pull-right m-t-lg">
                     <ol class="hbreadcrumb breadcrumb">
-                        <li><a href="index.html">Dashboard</a></li>
+                        <li><a href="category.php">Dashboard</a></li>
                         <li>
                             <span>Revenue Montly</span>
                         </li>
