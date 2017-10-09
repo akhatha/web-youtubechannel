@@ -45,35 +45,51 @@ include('../config.php');
                 <tr>
                     <th>Name</th>
                     <th>Email</th>
-                     <th>Subscribed Channel NAme</th>
+                     <th>Subscribed Channel Name</th>
 					 <th>Amount</th>
-					   
+					 <th></th> 
                 </tr>
                 </thead>
-               
-                     <tbody>
-				  <?php
-							$getRevenue=  displayMonthlyRevenue();
-							  $i=1;
-							  if($getRevenue){
-							    foreach($getRevenue as $row)
+					<tbody>
+                     <?php
+                         $getRevenue=  displayMonthlyRevenue();
+						  $i=1;
+						  if($getRevenue)
+						  {
+                          foreach($getRevenue as $row)
                                 {
-									?>
-									<tr data-user-id=<?php echo $row['id']?>>
-									<?php
-											echo ' 
-											<td class="hidden-xs">'.$row['first_name'].'</td>
-											<td class="hidden-xs">'.$row['email'].'</td>
-											<td class="hidden-xs">'.$row['channel_name'].'</td>
-											<td class="hidden-xs">'.$row['amount'].'</td>
-									 </tr>';
-										$i++;
-								}}
 								?>
-							
-							
-						</tbody>
-                
+										<tr data-user-id=<?php echo $row['subscription_id']?> id="<?php echo $row['subscription_id']?>">
+										<td class="hidden-xs"><?php echo $row['first_name']?></td>
+											   <td class="hidden-xs"><?php echo $row['email']?></td>
+											   <td class="hidden-xs"><?php echo $row['channel_name']?></td>
+											   <td class="hidden-xs"><?php echo $row['amount']?></td>
+											   
+											  <td> <form method="POST" class="form-horizontal"><div >
+											<div class="col-sm-6">
+							<select id="is_payed<?php echo $row['subscription_id']?>" class="form-control m-b " name="is_payed" onchange="savePay(<?php echo $row['subscription_id']?>,<?php echo $row['amount']?>,<?php echo $row['channel_id']?>,<?php echo $row['subscribed_user_id']?>)">
+											
+											<option value="">Select</option>
+												<option <?php if($row['is_payed']==1)  {
+												echo 'Selected'; 
+												}?> value="1">YES</option>
+												<option <?php if($row['is_payed']==0)  {
+												echo 'Selected'; 
+												}?> value="0">NO</option>
+												
+											</select>
+											</div>
+										</div>
+										</form></td>
+								  
+										</tr>
+								<?php		$i++;
+                               }
+							   }
+							   
+							   ?>
+                            
+                </tbody>
                 </table>
 
                 </div>
@@ -94,3 +110,25 @@ include('../config.php');
 
 </div>
 <?php include "common/footer.php" ?>
+
+<script type="text/javascript">
+
+function savePay(subscriptionid,amount,channel_id,subscribed_user_id){
+	
+	var is_payed= document.getElementById('is_payed'+subscriptionid).value;
+    $.ajax({
+        url: 'revenuePay.php',
+		type:'POST',
+        data: {pay:is_payed,id:subscriptionid,wallet_amount:amount,videoChannel_id:channel_id,user_subscribed:subscribed_user_id},
+        cache: false,
+        error: function(e){
+            alert(e);
+        },
+        success: function(data){
+		console.log(data);
+            //A response to say if it's updated or not
+              // location.reload();
+        }
+    });   
+}
+</script>

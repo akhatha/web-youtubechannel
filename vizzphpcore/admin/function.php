@@ -2,7 +2,7 @@
 function user_exist($username,$password)
 {
 			$pass=md5($password);
-			$query=mysql_query("SELECT * FROM  users WHERE email='$username' AND password='$pass' ");
+			$query=mysql_query("SELECT * FROM  users WHERE email='$username' AND user_type='admin' AND password='$pass' ");
 			
 			$user=	mysql_fetch_assoc($query);
 			$username= $user['email'];
@@ -64,10 +64,9 @@ function getName($tableName,$fieldName,$value)
 
 function displayMonthlyRevenue()
 {
-			$query=mysql_query("SELECT s.amount,s.channel_id,s.subscription_id,s.subscribed_user_id,u.id,u.channel_name,u.first_name,u.email
+			$query=mysql_query("SELECT s.amount,s.channel_id,s.subscription_id,s.subscribed_user_id,u.id,u.channel_name,u.first_name,u.email,s.is_payed
 								FROM subscription AS s
-								JOIN users u ON s.channel_id = u.id
-								ORDER BY u.id DESC ");
+								JOIN users u ON s.channel_id = u.id ");
 			while($row=mysql_fetch_assoc($query))
 			{
 						

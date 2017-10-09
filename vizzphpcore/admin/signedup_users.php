@@ -72,7 +72,7 @@ include('../config.php');
 											   
 											  <td> <form method="get" class="form-horizontal"><div >
 											<div class="col-sm-6">
-											<select id="status" class="form-control m-b " name="account" onchange="saveChanges(<?php echo $row['id']?>)">
+											<select id="status<?php echo $row['id']?>" class="form-control m-b " name="account" onchange="saveChanges(<?php echo $row['id']?>)">
 											
 											<option value="">Select</option>
 												<option <?php if($row['status']==1)  {
@@ -112,13 +112,14 @@ include('../config.php');
     </footer>
 
 </div>
+
 <?php include "common/footer.php" ?>
 <script type="text/javascript">
 
 function saveChanges(userid){
 	
-	var userstatus= document.getElementById('status').value;
-	//alert(userstatus);
+	var userstatus= document.getElementById('status'+userid).value;
+	// alert(userstatus);
 	
     $.ajax({
         url: 'statusupdate.php',
@@ -135,3 +136,4 @@ function saveChanges(userid){
     });   
 }
 </script>
+

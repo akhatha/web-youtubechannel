@@ -64,13 +64,13 @@ include('../config.php');
 								?>
 										<tr data-user-id=<?php echo $row['video_id']?> id="<?php echo $row['video_id']?>">
 											   <td class="hidden-xs"><?php echo $row['video_title']?></td>
-											   <td class="hidden-xs"><a href="<?php echo SITE_URL ."/uploads/videos/" .$row['video_name']?>"><?php echo $row['video_name']?></a></td>
+											   <td class="hidden-xs"><a href="<?php echo SITE_URL ."/uploads/videos/" .$row['video_name']?>" target="_blank;"><?php echo $row['video_name']?></a></td>
 											   <td class="hidden-xs"><?php echo $row['channel_name']?></td>
 											  
 											   
 											  <td> <form method="get" class="form-horizontal"><div >
 											<div class="col-sm-6">
-											<select id="status" class="form-control m-b " name="status" onchange="saveVideoStatus(<?php echo $row['video_id']?>)">
+											<select id="status<?php echo $row['video_id']?>" class="form-control m-b " name="status" onchange="saveVideoStatus(<?php echo $row['video_id']?>)">
 											
 											<option value="">Select</option>
 												<option <?php if($row['status']==1)  {
@@ -115,7 +115,7 @@ include('../config.php');
 
 function saveVideoStatus(userid){
 	
-	var videostatus= document.getElementById('status').value;
+	var videostatus= document.getElementById('status'+userid).value;
 	//alert(userstatus);
 	
     $.ajax({
