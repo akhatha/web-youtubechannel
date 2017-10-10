@@ -5,6 +5,13 @@ include('function.php');
 //include('config.php');
 $val = $_GET['id'];
 $user_id = $_SESSION['user_id'];
+$category_id = mysql_query("SELECT u.category_id FROM `uploaded_videos` u left join _category c on c.category_id=u.category_id  WHERE `video_id`=$val");
+while ($category = mysql_fetch_assoc($category_id)) {
+    echo $cat = $category['category_id'];
+}
+
+
+
 $user = mysql_query("SELECT count(*) as count FROM `likes` WHERE `video_id`=$val and liked_by=$user_id");
 while ($usercounts = mysql_fetch_assoc($user)) {
     $usercount = $usercounts['count'];
@@ -75,6 +82,8 @@ while ($row = mysql_fetch_assoc($getChannnelDetails)) {
     }
     //$thubnail_name = $row['thubnail_name'];
 }
+
+$cat
 ?>
 
 
@@ -202,6 +211,9 @@ while ($row = mysql_fetch_assoc($getChannnelDetails)) {
             <!-- Related Posts-->
             <div class="col-md-4">
                 <div id="related-posts">
+<?php $category_id = mysql_query("SELECT * FROM `uploaded_videos` u left join users us on u.`channel_id`=us.id  WHERE `category_id`=$cat  and `video_id`!=$val order by created_date");
+while ($category = mysql_fetch_assoc($category_id)) {
+    echo $cat = $category['video_name'];?>
 
                     <!-- video item -->
                     <div class="related-video-item">
@@ -214,110 +226,7 @@ while ($row = mysql_fetch_assoc($getChannnelDetails)) {
                                 <i class="fa fa-check-circle"></i></span></a>
                     </div>
                     <!-- // video item -->
-
-
-                    <!-- video item -->
-                    <div class="related-video-item">
-                        <div class="thumb">
-                            <small class="time">10:53</small>
-                            <a href="#"><img src="images/v2.png" alt=""></a>
-                        </div>
-                        <a href="watch.html"class="title">Lorem Ipsum is simply dummy text of the printing and </a>
-                        <a class="channel-name" href="#">Rabie Elkheir<span>
-                                <i class="fa fa-check-circle"></i></span></a>
-                    </div>
-                    <!-- // video item -->
-
-
-                    <!-- video item -->
-                    <div class="related-video-item">
-                        <div class="thumb">
-                            <small class="time">10:53</small>
-                            <a href="#"><img src="images/v3.png" alt=""></a>
-                        </div>
-                        <a href="watch.html"class="title">Lorem Ipsum is simply dummy text of the printing and </a>
-                        <a class="channel-name" href="#">Rabie Elkheir<span>
-                                <i class="fa fa-check-circle"></i></span></a>
-                    </div>
-                    <!-- // video item -->
-
-
-                    <!-- video item -->
-                    <div class="related-video-item">
-                        <div class="thumb">
-                            <small class="time">10:53</small>
-                            <a href="#"><img src="images/v4.png" alt=""></a>
-                        </div>
-                        <a href="watch.html"class="title">Lorem Ipsum is simply dummy text of the printing and </a>
-                        <a class="channel-name" href="#">Rabie Elkheir<span>
-                                <i class="fa fa-check-circle"></i></span></a>
-                    </div>
-                    <!-- // video item -->
-
-
-                    <!-- video item -->
-                    <div class="related-video-item">
-                        <div class="thumb">
-                            <small class="time">10:53</small>
-                            <a href="#"><img src="images/v5.png" alt=""></a>
-                        </div>
-                        <a href="watch.html"class="title">Lorem Ipsum is simply dummy text of the printing and </a>
-                        <a class="channel-name" href="#">Rabie Elkheir<span>
-                                <i class="fa fa-check-circle"></i></span></a>
-                    </div>
-                    <!-- // video item -->
-
-
-                    <!-- video item -->
-                    <div class="related-video-item">
-                        <div class="thumb">
-                            <small class="time">10:53</small>
-                            <a href="#"><img src="images/v6.png" alt=""></a>
-                        </div>
-                        <a href="watch.html"class="title">Lorem Ipsum is simply dummy text of the printing and </a>
-                        <a class="channel-name" href="#">Rabie Elkheir<span>
-                                <i class="fa fa-check-circle"></i></span></a>
-                    </div>
-                    <!-- // video item -->
-
-                    <!-- video item -->
-                    <div class="related-video-item">
-                        <div class="thumb">
-                            <small class="time">10:53</small>
-                            <a href="#"><img src="images/v1.png" alt=""></a>
-                        </div>
-                        <a href="watch.html"class="title">Lorem Ipsum is simply dummy text of the printing and </a>
-                        <a class="channel-name" href="#">Rabie Elkheir<span>
-                                <i class="fa fa-check-circle"></i></span></a>
-                    </div>
-                    <!-- // video item -->
-
-
-                    <!-- video item -->
-                    <div class="related-video-item">
-                        <div class="thumb">
-                            <small class="time">10:53</small>
-                            <a href="#"><img src="images/v4.png" alt=""></a>
-                        </div>
-                        <a href="watch.html"class="title">Lorem Ipsum is simply dummy text of the printing and </a>
-                        <a class="channel-name" href="#">Rabie Elkheir<span>
-                                <i class="fa fa-check-circle"></i></span></a>
-                    </div>
-                    <!-- // video item -->
-
-
-                    <!-- video item -->
-                    <div class="related-video-item">
-                        <div class="thumb">
-                            <small class="time">10:53</small>
-                            <a href="watch.html"><img src="images/v3.png" alt=""></a>
-                        </div>
-                        <a href="watch.html" class="title">Lorem Ipsum is simply dummy text of the printing and </a>
-                        <a class="channel-name" href="#">Rabie Elkheir<span>
-                                <i class="fa fa-check-circle"></i></span></a>
-                    </div>
-                    <!-- // video item -->
-
+              <?php      } ?>
                 </div>
             </div><!-- // col-md-4 -->
             <!-- // Related Posts -->

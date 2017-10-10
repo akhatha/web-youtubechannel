@@ -33,7 +33,7 @@ while ($row = mysql_fetch_assoc($getChannnelDetails)) {
 						
 							
 $getcategory = mysql_query("SELECT * FROM `uploaded_videos` u LEFT JOIN _category c on 
-    u.category_id=c.category_id where category_name='$val'");
+    u.category_id=c.category_id  left join users us on u.`channel_id`=us.id where category_name='$val'");
 
 while ($rows = mysql_fetch_assoc($getcategory)) {
     //print_r($rows);
@@ -41,6 +41,7 @@ while ($rows = mysql_fetch_assoc($getcategory)) {
       $id = $rows['video_id'];
      $video_duration = $rows['video_duration'];
      $video_title = $rows['video_title'];
+     $channel_name = $rows['channel_name'];
     ?>
 							<!-- Chanels Item -->
                            <!-- <div class="col-md-3">
@@ -62,7 +63,7 @@ while ($rows = mysql_fetch_assoc($getcategory)) {
                             </div>
                             <div class="video-info">
                                 <a href="#" class="title"><?php echo $video_title ?></a>
-                                <a class="channel-name" href="#">Rabie Elkheir<span>
+                                <a class="channel-name" href="#"><?php $channel_name ?><span>
                                         <span class="subscribers">436,414 subscribers</span>
                                       <!--  <i class="fa fa-check-circle"></i></span></a>
                                 <span class="views"><i class="fa fa-eye"></i>2.8M views </span>
