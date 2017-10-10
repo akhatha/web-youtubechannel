@@ -76,11 +76,11 @@ if(isset($_POST['submit']))
         	<form method="POST" action="">
 				<div class="form-group label-floating">
 					<label class="control-label">Your Email</label>
-					<input class="form-control" placeholder="" type="text" name="email">
+					<input required=""  class="form-control" placeholder="" type="text" name="email">
 				</div>
 				<div class="form-group label-floating">
 					<label class="control-label">Your Password</label>
-					<input class="form-control" placeholder="" type="password" name="password">
+					<input required="" class="form-control" placeholder="" type="password" name="password">
 				</div>
                 
 				<div class="remember">
@@ -90,6 +90,7 @@ if(isset($_POST['submit']))
 								Remember Me
 						</label>
 					</div>
+					<?php if(isset($mess)){echo $mess;}?>
 					<a href="#" class="forgot">Forgot my Password</a>
 				</div>
                 

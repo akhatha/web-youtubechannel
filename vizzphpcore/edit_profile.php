@@ -179,7 +179,6 @@ $( document ).ready(function() {
 		var lName = $('#lName').val();
 		var email = $('#email').val();
 		var mobile = $('#mobile').val();
-        //var id = document.getElementById('hiddenId').value;
         $.post(
                 siteUrl + "updateprofile.php?action=updateprofiles",
                 {uName: uName, fName: fName, lName: lName, email: email, mobile: mobile},
@@ -227,7 +226,6 @@ $( document ).ready(function() {
 		 }
 		 else
 		 {
-        //var id = document.getElementById('hiddenId').value;
         $.post(
                 siteUrl + "updateprofile.php?action=changepassword",
                 {pass: pass, cPass: cPass},

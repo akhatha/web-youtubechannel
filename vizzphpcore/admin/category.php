@@ -2,9 +2,6 @@
 include "common/header.php";
 include('function.php');
 include('../config.php');
-
-
-
 if(isset($_POST['save_category']))
 {
 	$catid=$_POST['catid'];
@@ -13,8 +10,8 @@ if(isset($_POST['save_category']))
 	$mess=null;
 	$color=null;
 	$categoryName=$_POST['category'];
-	$existInstitue=getName("_category","category_name",$categoryName);
-	if($existInstitue && (!$catid))//checking institution_name already exist or not
+	$existCategory=getName("_category","category_name",$categoryName);
+	if($existCategory && (!$catid))//checking institution_name already exist or not
 	{
 		$mess="<div class='alert alert-danger fade in' id='success'>
 						<strong>Danger! </strong> Category Name Already Exist!
@@ -291,13 +288,14 @@ $("#edit_category").click(function () {
     data:{category_id:categoryid,category_name:catname},
     success: function(data){
          if(data=="YES"){
-             alert("hiiiiiiiii");
+             alert("Category Added Sucessfully");
          }else{
-             alert("can't delete the row");
+             alert("Category Already Exists");
          }
 		 $('#editModalCategory').modal('hide');
                 location.reload();
     }
+	 
 	});   
     });
 	
