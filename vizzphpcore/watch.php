@@ -7,7 +7,7 @@ $val = $_GET['id'];
 $user_id = $_SESSION['user_id'];
 $category_id = mysql_query("SELECT u.category_id FROM `uploaded_videos` u left join _category c on c.category_id=u.category_id  WHERE `video_id`=$val");
 while ($category = mysql_fetch_assoc($category_id)) {
-    echo $cat = $category['category_id'];
+     $cat = $category['category_id'];
 }
 
 
@@ -213,16 +213,22 @@ $cat
                 <div id="related-posts">
 <?php $category_id = mysql_query("SELECT * FROM `uploaded_videos` u left join users us on u.`channel_id`=us.id  WHERE `category_id`=$cat  and `video_id`!=$val order by created_date");
 while ($category = mysql_fetch_assoc($category_id)) {
-    echo $cat = $category['video_name'];?>
+     $cat = $category['video_name'];
+    $video_title = $category['video_title'];
+      $id = $category['video_id'];
+     $video_duration = $category['video_duration'];
+     $video_title = $category['video_title'];
+     $channel_name = $category['channel_name'];
+    ?>
 
                     <!-- video item -->
                     <div class="related-video-item">
                         <div class="thumb">
-                            <small class="time">10:53</small>
-                            <a href="#"><img src="images/v1.png" alt=""></a>
+                            <small class="time"><?php echo $video_duration ?></small>
+                            <a href="watch.php?id=<?php echo $id?>"><img src="<?php echo THUMB_URL.$category['thubnail_name'];?>" alt=""></a>
                         </div>
-                        <a href="watch.html"class="title">Lorem Ipsum is simply dummy text of the printing and </a>
-                        <a class="channel-name" href="#">Rabie Elkheir<span>
+                        <a href="watch.php?id=<?php echo $id?>" class="title"><?php echo $video_title ?></a>
+                        <a class="channel-name" href="watch.php?id=<?php echo $id?>"><?php echo $channel_name;?><span>
                                 <i class="fa fa-check-circle"></i></span></a>
                     </div>
                     <!-- // video item -->

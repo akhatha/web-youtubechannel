@@ -42,6 +42,7 @@ while ($rows = mysql_fetch_assoc($getcategory)) {
      $video_duration = $rows['video_duration'];
      $video_title = $rows['video_title'];
      $channel_name = $rows['channel_name'];
+     
     ?>
 							<!-- Chanels Item -->
                            <!-- <div class="col-md-3">
@@ -63,7 +64,7 @@ while ($rows = mysql_fetch_assoc($getcategory)) {
                             </div>
                             <div class="video-info">
                                 <a href="#" class="title"><?php echo $video_title ?></a>
-                                <a class="channel-name" href="#"><?php $channel_name ?><span>
+                                <a class="channel-name" href="#"><?php echo $channel_name ?><span>
                                         <span class="subscribers">436,414 subscribers</span>
                                       <!--  <i class="fa fa-check-circle"></i></span></a>
                                 <span class="views"><i class="fa fa-eye"></i>2.8M views </span>
