@@ -59,27 +59,29 @@ include('function.php');
                         <div class="row">
 
                             <!-- video-item -->
-							
-							<?php
-							$getChannnelDetails = mysql_query("SELECT u.*,c.channel_name FROM uploaded_videos as u
-							 JOIN channel_details c ON c.channel_id=u.channel_id
-							WHERE status=1
-							 ");
-							//while ($row = mysql_fetch_assoc($getChannnelDetails)) {
-							?>
+						<?php	
+							$getcategory = mysql_query("SELECT *,u.video_id,count(*) FROM `uploaded_videos` u LEFT JOIN likes c on u.video_id=c.video_id left join users us on u.`channel_id`=us.id where created_date between '2017-10-01' and '2017-10-31' GROUP by c.`video_id` ORDER BY count(*) DESC LIMIT 1,8"); 
+while ($rows = mysql_fetch_assoc($getcategory)) {
+  //$video_title = $rows['video_title'];
+      $id = $rows['video_id'];
+     $video_duration = $rows['video_duration'];
+     $video_title = $rows['video_title'];
+     $channel_name = $rows['channel_name'];
+     
+    ?>
                             <div class="col-lg-4 col-md-4 col-sm-6">
                                 <div class="video-item">
                                     <div class="thumb">
                                         <div class="hover-efect"></div>
-										<small class="time"><?php echo $row['video_duration'];?></small>
+										<small class="time"><?php echo $rows['video_duration'];?></small>
    
    
                                        
-                                        <a href="<?php echo VIDEO_URL.$row['video_name']; ?>"><img src="<?php echo THUMB_URL.$row['thubnail_name'];?>" alt=""></a>
+                                        <a href="<?php echo VIDEO_URL.$rows['video_name']; ?>"><img src="<?php echo THUMB_URL.$rows['thubnail_name'];?>" alt=""></a>
                                     </div>
                                     <div class="video-info">
-                                        <a href="#" class="title"><?php echo $row['video_title'];?></a>
-                                        <a class="channel-name" href="#"><?php echo $row['channel_name'];?><span>
+                                        <a href="#" class="title"><?php echo $rows['video_title'];?></a>
+                                        <a class="channel-name" href="#"><?php echo $rows['channel_name'];?><span>
                                         <i class="fa fa-check-circle"></i></span></a>
                                         <span class="views"><i class="fa fa-eye"></i>2.8M views </span>
                                         <span class="date"><i class="fa fa-clock-o"></i>5 months ago </span>
@@ -89,7 +91,7 @@ include('function.php');
                             <!-- // video-item -->
 
 <?php     
-    //}
+    }
 	?>
                            
 

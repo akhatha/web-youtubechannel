@@ -53,18 +53,31 @@
 
                         <h1 class="new-video-title"><i class="fa fa-bolt"></i> Trending</h1>
                         <div class="row">
-
+                            <?php
+						
+							
+$getcategory = mysql_query("SELECT u.video_id,count(*) FROM `uploaded_videos` u LEFT JOIN likes c on u.video_id=c.video_id where created_date between '2017-10-01' and '2017-10-31' GROUP by c.`video_id` ORDER BY count(*) DESC LIMIT 1,8"); 
+while ($rows = mysql_fetch_assoc($getcategory)) {
+  $video_title = $rows['video_title'];
+      $id = $rows['video_id'];
+     $video_duration = $rows['video_duration'];
+     $video_title = $rows['video_title'];
+     $channel_name = $rows['channel_name'];
+     
+    ?>
+	
+                                
                             <!-- video-item -->
                             <div class="col-lg-4 col-md-4 col-sm-6">
                                 <div class="video-item">
                                     <div class="thumb">
                                         <div class="hover-efect"></div>
-                                        <small class="time">10:53</small>
-                                        <a href="#"><img src="images/v1.png" alt=""></a>
+                                        <small class="time"><?php echo $video_duration ?></small>
+                                         <a href="watch.php?id=<?php echo $id?>"><img src="<?php echo THUMB_URL.$rows['thubnail_name'];?>" alt=""></a>
                                     </div>
                                     <div class="video-info">
-                                        <a href="#" class="title">Lorem Ipsum is simply dummy text of the printing and </a>
-                                        <a class="channel-name" href="#">Rabie Elkheir<span>
+                                        <a href="watch.php?id=<?php echo $id?>" class="title"><?php echo $video_title ?></a>
+                                <a class="channel-name" href="watch.php?id=<?php echo $id?>"><?php echo $channel_name ?><span>
                                         <i class="fa fa-check-circle"></i></span></a>
                                         <span class="views"><i class="fa fa-eye"></i>2.8M views </span>
                                         <span class="date"><i class="fa fa-clock-o"></i>5 months ago </span>
@@ -113,7 +126,7 @@
                             </div>
                             <!-- // video-item -->
 
-
+                          <?php  } ?>
 
                         </div><!-- // row -->
 
