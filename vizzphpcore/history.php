@@ -39,6 +39,12 @@ include('/function.php');
 <?php $getChannnelDetails = mysql_query("SELECT * FROM uploaded_videos h join history u on h.`video_id`=u.video_id left join users us on us.id=u.channel_id where u.`channel_id`=$user_id");
 
 while ($row = mysql_fetch_assoc($getChannnelDetails)) {
+    $created_date = $row['created_date'];
+     $id = $row['video_id'];
+                        $views = mysql_query("SELECT count(*) as count FROM `history` WHERE `video_id`=$id");
+                        while ($viewss = mysql_fetch_assoc($views)) {
+                            $view = $viewss['count'];
+                        }
     ?>
 
 
@@ -55,8 +61,8 @@ while ($row = mysql_fetch_assoc($getChannnelDetails)) {
                                     <a href="watch.php?id=<?php echo $row['video_id']?>" class="title"><?php echo $row['video_title'] ?></a>
                                     <a class="channel-name" href="watch.php?id=<?php echo $row['video_id']?>"><?php echo $row['channel_name'] ?><span>
                                             <i class="fa fa-check-circle"></i></span></a>
-                                    <span class="views"><i class="fa fa-eye"></i>2.8M views </span>
-                                    <span class="date"><i class="fa fa-clock-o"></i>5 months ago </span>
+                                    <span class="views"><i class="fa fa-eye"></i><?php echo format($view) ?> views </span>
+                                    <span class="date"><i class="fa fa-clock-o"></i><?php echo time_elapsed_string($created_date); ?></span>
                                 </div>
                             </div>
                         </div>

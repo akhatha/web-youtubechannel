@@ -7,7 +7,7 @@ $val = $_GET['id'];
 $user_id = $_SESSION['user_id'];
 $category_id = mysql_query("SELECT u.category_id FROM `uploaded_videos` u left join _category c on c.category_id=u.category_id  WHERE `video_id`=$val");
 while ($category = mysql_fetch_assoc($category_id)) {
-     $cat = $category['category_id'];
+    $cat = $category['category_id'];
 }
 
 
@@ -70,20 +70,27 @@ while ($row = mysql_fetch_assoc($getChannnelDetails)) {
         }
     }
 
-    $getuserdetails = mysql_query("SELECT * FROM `users` where id=$user_id");
-    while ($getuser = mysql_fetch_assoc($getuserdetails)) {
-        $first_name = $getuser['first_name'];
-        $last_name = $getuser['last_name'];
-    }
 
-    $getsubscriber = mysql_query("SELECT count(*) as count FROM `subscription` WHERE `channel_id`=$user_id");
-    while ($getsubscribe = mysql_fetch_assoc($getsubscriber)) {
-        $subscribers = $getsubscribe['count'];
-    }
     //$thubnail_name = $row['thubnail_name'];
 }
+$getuserdetails = mysql_query("SELECT * FROM `users` where id=$user_id");
+while ($getuser = mysql_fetch_assoc($getuserdetails)) {
+    $first_name = $getuser['first_name'];
+    $last_name = $getuser['last_name'];
+}
 
-$cat
+$getsubscriber = mysql_query("SELECT count(*) as count FROM `subscription` WHERE `channel_id`=$channel_id");
+while ($getsubscribe = mysql_fetch_assoc($getsubscriber)) {
+    $subscribers = $getsubscribe['count'];
+}
+
+$commentvideo = mysql_query("SELECT count(*) as count FROM `comment` WHERE `video_id`=$video_id");
+while ($comments = mysql_fetch_assoc($commentvideo)) {
+    $comment = $comments['count'];
+}
+$displaycomment = mysql_query("SELECT first_name,last_name,channel_name,comment,created_date from comment left join users on users.id=comment.user_id order by comment.created_date DESC");
+
+
 ?>
 
 
@@ -117,164 +124,171 @@ $cat
                         <?php if ($userbronce == 0) { ?>
 
                             <li><a class="like" href="#" onclick="insert_likes('bronce',<?php echo $video_id ?>,<?php echo $user_id ?>)"> <i class="fa fa-star  fa-2x "  style="color:#965A38"></i><br/><?php echo $bronce; ?></a></li>
-                         <?php  } else { ?>
+                        <?php } else { ?>
                             <li><a class="like" href="#" onclick="delete_likes('bronce',<?php echo $video_id ?>,<?php echo $user_id ?>)"> <i class="fa fa-star  fa-2x "  style="color:#965A38"></i><br/><?php echo $bronce; ?></a></li>
-                           <?php } ?>
-                        </ul>
-                        <ul class="social_link">
-                            <li><a class="facebook" href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                            <li><a class="youtube" href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
-                            <li><a class="linkedin" href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                            <li><a class="google" href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                            <li><a class="twitter" href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                            <li><a class="rss" href="#"><i class="fa fa-rss" aria-hidden="true"></i></a></li>
-                        </ul><!-- // Social -->
-                    </div><!-- // video-share -->
-                    <!-- // Video Player -->
+                        <?php } ?>
+                    </ul>
+                    <ul class="social_link">
+                        <li><a class="facebook" href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        <li><a class="youtube" href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                        <li><a class="linkedin" href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                        <li><a class="google" href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                        <li><a class="twitter" href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                        <li><a class="rss" href="#"><i class="fa fa-rss" aria-hidden="true"></i></a></li>
+                    </ul><!-- // Social -->
+                </div><!-- // video-share -->
+                <!-- // Video Player -->
 
 
-                    <!-- Chanels Item -->
-                    <div class="chanel-item">
-                        <div class="chanel-thumb">
-                            <a href="#"><img src="images/ch-1.jpg" alt=""></a>
-                        </div>
-                        <div class="chanel-info">
-                            <a class="title" href="#"><?php echo $first_name . ' ' . $last_name ?></a>
-                            <span class="subscribers"><?php echo $subscribers; ?> subscribers</span>                     
-                        </div>
-                        <a href="watch.html"class="subscribe">Subscribe</a>
+                <!-- Chanels Item -->
+                <div class="chanel-item">
+                    <div class="chanel-thumb">
+                        <a href="#"><img src="images/ch-1.jpg" alt=""></a>
                     </div>
-                    <!-- // Chanels Item -->
-
-
-                    <!-- Comments -->
-                    <div id="comments" class="post-comments">
-                        <h3 class="post-box-title"><span>19</span> Comments</h3>
-                        <ul class="comments-list">
-                            <li>
-                                <div class="post_author">
-                                    <div class="img_in">
-                                        <a href="#"><img src="images/c1.jpg" alt=""></a>
-                                    </div>
-                                    <a href="watch.html"class="author-name">Rabie Elkheir</a>
-                                    <time datetime="2017-03-24T18:18">July 27, 2014 - 11:00 PM</time>
-                                </div>
-                                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum</p>
-                                <a href="watch.html"class="reply">Reply</a>
-
-                                <ul class="children">
-                                    <li>
-                                        <div class="post_author">
-                                            <div class="img_in">
-                                                <a href="#"><img src="images/c2.jpg" alt=""></a>
-                                            </div>
-                                            <a href="watch.html"class="author-name">Salam Ahmmed</a>
-                                            <time datetime="2017-03-24T18:18">July 27, 2014 - 11:00 PM</time>
-                                        </div>
-                                        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum</p>
-                                        <a href="watch.html"class="reply">Reply</a>
-                                    </li>
-                                </ul>
-
-
-                            </li>
-                            <li>
-                                <div class="post_author">
-                                    <div class="img_in">
-                                        <a href="#"><img src="images/c2.jpg" alt=""></a>
-                                    </div>
-                                    <a href="watch.html"class="author-name">Salam Ahmmed</a>
-                                    <time datetime="2017-03-24T18:18">July 27, 2014 - 11:00 PM</time>
-                                </div>
-                                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum</p>
-                                <a href="watch.html"class="reply">Reply</a>
-                            </li>
-
-                        </ul>
-
-
-                        <h3 class="post-box-title">Add Comments</h3>
-                        <form>
-                            <input type="text" class="form-control" id="Name" placeholder="YOUR NAME">
-                            <input type="email" class="form-control" id="Email" placeholder="EMAIL">
-                            <textarea class="form-control" rows="8" id="Message" placeholder="COMMENT"></textarea>
-                            <button type="button" id="contact_submit" class="btn btn-dm">Post Comment</button>
-                        </form>
+                    <div class="chanel-info">
+                        <a class="title" href="#"><?php echo $first_name . ' ' . $last_name ?></a>
+                        <span class="subscribers"><?php echo $subscribers; ?> subscribers</span>                     
                     </div>
-                    <!-- // Comments -->
-
-
-                </div><!-- // watch -->
-            </div><!-- // col-md-8 -->
-            <!-- // Watch -->
-
-            <!-- Related Posts-->
-            <div class="col-md-4">
-                <div id="related-posts">
-<?php $category_id = mysql_query("SELECT * FROM `uploaded_videos` u left join users us on u.`channel_id`=us.id  WHERE `category_id`=$cat  and `video_id`!=$val order by created_date");
-while ($category = mysql_fetch_assoc($category_id)) {
-     $cat = $category['video_name'];
-    $video_title = $category['video_title'];
-      $id = $category['video_id'];
-     $video_duration = $category['video_duration'];
-     $video_title = $category['video_title'];
-     $channel_name = $category['channel_name'];
-    ?>
-
-                    <!-- video item -->
-                    <div class="related-video-item">
-                        <div class="thumb">
-                            <small class="time"><?php echo $video_duration ?></small>
-                            <a href="watch.php?id=<?php echo $id?>"><img src="<?php echo THUMB_URL.$category['thubnail_name'];?>" alt=""></a>
-                        </div>
-                        <a href="watch.php?id=<?php echo $id?>" class="title"><?php echo $video_title ?></a>
-                        <a class="channel-name" href="watch.php?id=<?php echo $id?>"><?php echo $channel_name;?><span>
-                                <i class="fa fa-check-circle"></i></span></a>
-                    </div>
-                    <!-- // video item -->
-              <?php      } ?>
+                    <a href="watch.html"class="subscribe">Subscribe</a>
                 </div>
-            </div><!-- // col-md-4 -->
-            <!-- // Related Posts -->
-        </div><!-- // row -->
-    </div>
-    <?php include "footer.php"; ?>
-
-<script type="text/javascript">
+                <!-- // Chanels Item -->
 
 
-                            function insert_likes(likes, video_id, liked_by)
-                            {
-                                //alert(video_id);
-                                var video_id = video_id;
-                                var likes = likes;
-                                //alert(likes);
-                                $.ajax({
-                                    type: "POST",
-                                    url: 'likes.php',
-                                    data: {video_id: video_id, likes: likes, liked_by: liked_by},
-                                    success: function () {
-                                        //alert("in");
-                                        location.reload();
-                                        //alert( "Data Saved: " + msg ); //Anything you want
-                                    }
+                <!-- Comments -->
+                <div id="comments" class="post-comments">
+                    <h3 class="post-box-title"><span><?php echo $comment ?></span> Comments</h3>
+                    <ul class="comments-list">
+                        <li>
+                        <?php    while ($display_comment = mysql_fetch_assoc($displaycomment)) {
+   $comment = $display_comment['comment'];
+    $channel_name = $display_comment['channel_name'];
+    $first_name = $display_comment['first_name'];
+    $last_name = $display_comment['last_name'];
+    $created_date = $display_comment['created_date']; ?>
+                            <div class="post_author">
+                                <div class="img_in">
+                                    <a href="#"><img src="images/c1.jpg" alt=""></a>
+                                </div>
+                                <a href="watch.html"class="author-name"><?php echo $first_name.' '.$last_name ?></a>
+                                <time datetime="2017-03-24T18:18"><?php echo $created_date?></time>
+                            </div>
+                            <p><?php echo $comment;?></p>
+                           <?php  
+} ?>
+                            <h3 class="post-box-titcle">Add Comments</h3>
+                            <form  method="post">
+                                <input type="hidden" id="videoid" value="<?php echo $video_id ?>">
+                                <input type="hidden" id="userid" value="<?php echo $user_id ?>">
+                                <textarea class="form-control" rows="8" id="Message" placeholder="COMMENT"></textarea>
+                                <button type="submit" id="contact_submit" class="btn btn-dm">Post Comment</button>
+                            </form>
+                            </div>
+                            <!-- // Comments -->
+
+
+                            </div><!-- // watch -->
+                            </div><!-- // col-md-8 -->
+                            <!-- // Watch -->
+
+                            <!-- Related Posts-->
+                            <div class="col-md-4">
+                                <div id="related-posts">
+                                    <?php
+                                    $category_id = mysql_query("SELECT * FROM `uploaded_videos` u left join users us on u.`channel_id`=us.id  WHERE `category_id`=$cat  and `video_id`!=$val order by created_date");
+                                    while ($category = mysql_fetch_assoc($category_id)) {
+                                        $cat = $category['video_name'];
+                                        $video_title = $category['video_title'];
+                                        $id = $category['video_id'];
+                                        $video_duration = $category['video_duration'];
+                                        $video_title = $category['video_title'];
+                                        $channel_name = $category['channel_name'];
+                                        ?>
+
+                                        <!-- video item -->
+                                        <div class="related-video-item">
+                                            <div class="thumb">
+                                                <small class="time"><?php echo $video_duration ?></small>
+                                                <a href="watch.php?id=<?php echo $id ?>"><img src="<?php echo THUMB_URL . $category['thubnail_name']; ?>" alt=""></a>
+                                            </div>
+                                            <a href="watch.php?id=<?php echo $id ?>" class="title"><?php echo $video_title ?></a>
+                                            <a class="channel-name" href="watch.php?id=<?php echo $id ?>"><?php echo $channel_name; ?><span>
+                                                    <i class="fa fa-check-circle"></i></span></a>
+                                        </div>
+                                        <!-- // video item -->
+<?php } ?>
+                                </div>
+                            </div><!-- // col-md-4 -->
+                            <!-- // Related Posts -->
+                            </div><!-- // row -->
+                            </div>
+<?php include "footer.php"; ?>
+
+                            <script type="text/javascript">
+
+
+                                function insert_likes(likes, video_id, liked_by)
+                                {
+                                    //alert(video_id);
+                                    var video_id = video_id;
+                                    var likes = likes;
+                                    //alert(likes);
+                                    $.ajax({
+                                        type: "POST",
+                                        url: 'likes.php',
+                                        data: {video_id: video_id, likes: likes, liked_by: liked_by},
+                                        success: function () {
+                                            //alert("in");
+                                            location.reload();
+                                            //alert( "Data Saved: " + msg ); //Anything you want
+                                        }
+                                    });
+                                }
+                                function delete_likes(likes, video_id, liked_by)
+                                {
+                                    //alert(video_id);
+                                    var video_id = video_id;
+                                    var likes = likes;
+                                    //alert(likes);
+                                    $.ajax({
+                                        type: "POST",
+                                        url: 'delete_likes.php',
+                                        data: {video_id: video_id, likes: likes, liked_by: liked_by},
+                                        success: function () {
+                                            //alert("in");
+                                            location.reload();
+                                            //alert( "Data Saved: " + msg ); //Anything you want
+                                        }
+                                    });
+                                }
+
+
+
+
+
+                                $('form').on('submit', function (e) {
+                                     e.preventDefault();
+                                    var comment = $("#Message").val();
+                                    var video_id = $("#videoid").val();
+                                    var user_id = $("#userid").val();
+                                    alert(comment);
+                                    alert(user_id);
+                                    alert(video_id);
+                                   
+
+                                    $.ajax({
+                                       url: 'comment.php',
+		type:'POST',
+        data: {user_id: user_id, video_id: video_id, comment: comment},
+                                        
+                                        
+                                        success: function (datas) {
+                                            
+                                            window.location = "watch.php?id=" + video_id;
+                                        }
+                                    });
+
                                 });
-                            }
-                            function delete_likes(likes, video_id, liked_by)
-                            {
-                                //alert(video_id);
-                                var video_id = video_id;
-                                var likes = likes;
-                                //alert(likes);
-                                $.ajax({
-                                    type: "POST",
-                                    url: 'delete_likes.php',
-                                    data: {video_id: video_id, likes: likes, liked_by: liked_by},
-                                    success: function () {
-                                        //alert("in");
-                                        location.reload();
-                                        //alert( "Data Saved: " + msg ); //Anything you want
-                                    }
-                                });
-                            }
-</script>
+
+
+
+                            </script>
