@@ -91,23 +91,25 @@ include('function.php');
 
             </div>
             <!-- // category -->
-            <?php
+     
+        </div>
+        
+    </div>
+           <?php
     $limit = 10;
-    $sql = "SELECT count(*) as count FROM `uploaded_videos` u LEFT JOIN likes c on u.video_id=c.video_id left join users us on u.`channel_id`=us.id where created_date between '$fromdate' and '$todate' GROUP by c.`video_id` ORDER BY count(*) DESC";
-     $rs_result = mysql_query($sql);
-    while ($rows = mysql_fetch_assoc($rs_result)) {
-        $total_records = $rows['count'];
+    $sql = mysql_query("SELECT *  FROM `uploaded_videos` u LEFT JOIN likes c on u.video_id=c.video_id left join users us on u.`channel_id`=us.id where created_date between '$fromdate' and '$todate' GROUP by c.`video_id` ORDER BY count(*) DESC");
+    $total_records=mysql_num_rows($sql);
+
+    
+    
         $total_pages = ceil($total_records / $limit);
         $pagLink = "<nav><ul class='pagination'>";
         for ($i = 1; $i <= $total_pages; $i++) {
             $pagLink .= "<li><a href='trending.php?page=" . $i . "'>" . $i . "</a></li>";
         };
         echo $pagLink . "</ul></nav>";
-    }
+    
     ?>
-        </div>
-        
-    </div>
 </div>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/jquery.sticky-kit.min.js"></script>
