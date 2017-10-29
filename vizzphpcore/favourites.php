@@ -9,13 +9,13 @@ include('/function.php');
 <div id="all-output" class="col-md-10">
     <div id="history">
 
-        <h1 class="title">history</h1>
+        <h1 class="title">favourites</h1>
 
         <div class="filter">
             <div class="row">
                 <div class="col-md-8">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#watch-history">Watch history</a></li>
+                        <li class="active"><a data-toggle="tab" href="#watch-history">Watch favourites</a></li>
                         <!--  <li><a data-toggle="tab" href="#search-history">Search history</a></li>
                           <li><a data-toggle="tab" href="#comments">Comments</a></li>-->
                     </ul>
