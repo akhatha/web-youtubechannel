@@ -3,7 +3,7 @@ include "header.php";
 include('/function.php');
 //include('/config.php');
 
- $user_id = $_SESSION['user_id'];
+  $user_id = $_SESSION['user_id'];
 ?>
 <!-- // history-output -->
 <div id="all-output" class="col-md-10">
@@ -36,8 +36,7 @@ include('/function.php');
             <div id="watch-history" class="tab-pane fade in active">
 
                 <div class="row">
-<?php 
- $limit = 12;
+<?php $limit = 12;
                     if (isset($_GET["page"])) {
                         $page = $_GET["page"];
                     } else {
@@ -45,7 +44,7 @@ include('/function.php');
                     };
                     $start_from = ($page - 1) * $limit;
 
-$getChannnelDetails = mysql_query("SELECT * FROM uploaded_videos h join history u on h.`video_id`=u.video_id left join users us on us.id=u.channel_id where u.`channel_id`=$user_id LIMIT $start_from, $limit");
+$getChannnelDetails = mysql_query("SELECT * FROM `uploaded_videos` u LEFT JOIN likes c on u.video_id=c.video_id left join users us on u.`channel_id`=us.id where c.liked_by=$user_id LIMIT $start_from, $limit");
 
 while ($row = mysql_fetch_assoc($getChannnelDetails)) {
     $created_date = $row['created_date'];
@@ -93,9 +92,9 @@ while ($row = mysql_fetch_assoc($getChannnelDetails)) {
         </div><!-- // tab-content -->
 
     </div><!-- // history -->
-       <?php
+      <?php
     $limit = 12;
-    $sql = mysql_query("SELECT * FROM uploaded_videos h join history u on h.`video_id`=u.video_id left join users us on us.id=u.channel_id where u.`channel_id`=$user_id");
+    $sql = mysql_query("SELECT * FROM `uploaded_videos` u LEFT JOIN likes c on u.video_id=c.video_id left join users us on u.`channel_id`=us.id where c.liked_by=$user_id");
      $total_records=mysql_num_rows($sql);
 
     
@@ -109,6 +108,7 @@ while ($row = mysql_fetch_assoc($getChannnelDetails)) {
     
     ?>
 </div><!-- // history-output -->
+   
 </div>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/jquery.sticky-kit.min.js"></script>
