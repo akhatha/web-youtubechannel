@@ -77,7 +77,7 @@ if (isset($_POST['video_submit'])) {
 
 <input type="hidden" name="hiddenId" id="hiddenId" value="<?php echo $last_id; ?>">
 <?php if(isset($videoExt) =='mp4' || isset($videoExt) =='MP4'){?>
-<video width="320" height="240" controls id="video">
+<video width="320" height="240" controls id="video" style="display:none">
     <source src="<?php echo $url; ?>" type="video/mp4">
 </video>
 <?php }?>
