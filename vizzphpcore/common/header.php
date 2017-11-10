@@ -146,6 +146,7 @@
                         <li><a href="home">home</a></li>
                         <li><a href="trending">trending</a></li>
                         <li><a href="history">history</a></li>
+                        
                     </ul>
                 </div><!-- // col-md-4 -->
                 <div class="col-lg-2 col-md-2 col-sm-4 hidden-xs hidden-sm">

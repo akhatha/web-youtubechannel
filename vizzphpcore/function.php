@@ -443,19 +443,19 @@ function user_exist($username,$password)
 			}			
 }
 //checking user laready exist based on username ,email and pwd	
-function user_name_exist($username)
+function user_name_exist($username,$email)
 {
 			//S$pass=md5($password);
-			$query=mysql_query("SELECT * FROM  users WHERE name='$username'");
+			$query=mysql_query("SELECT * FROM  users WHERE  channel_name='$username' OR email='$email'");
 			$user=	mysql_fetch_assoc($query);
-			$username= $user['name'];
+			$username= $user['channel_name'];
 			if(isset($username))
 			{
-				return $username;
+				return 1;
 			}
 			else
 			{		
-				return false;
+				return 0;
 			}			
 }
 

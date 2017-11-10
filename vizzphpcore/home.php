@@ -55,17 +55,19 @@ if (isset($_GET["page"])) {
 };
 $start_from = ($page - 1) * $limit;
     $getChannnelDetails = mysql_query("SELECT * FROM `_category` LIMIT $start_from, $limit");
-
+if(isset( $getChannnelDetails))
+{
     while ($row = mysql_fetch_assoc($getChannnelDetails)) {
         $catName = $row['category_name'];
         //$catId = $row['category_id'];
         $catId = $row['category_id'];
         ?>
-        <h1 class="new-video-title"><i class="fa fa-soccer-ball-o"></i> <?php echo $catName; ?></h1>
+    <?php
+            $getcategory = mysql_query("SELECT * FROM `uploaded_videos` u LEFT JOIN _category c on 
+    u.category_id=c.category_id  left join users us on u.`channel_id`=us.id where category_name='$catName' LIMIT 0,4"); 
+    if((count($getcategory)) > 0) { ?>  <h1 class="new-video-title"><i class="fa fa-soccer-ball-o"></i> <?php echo $catName; ?></h1> <?php } ?>
         <div class="row">
             <?php
-            $getcategory = mysql_query("SELECT * FROM `uploaded_videos` u LEFT JOIN _category c on 
-    u.category_id=c.category_id  left join users us on u.`channel_id`=us.id where category_name='$catName' LIMIT 0,4");
 
             while ($rows = mysql_fetch_assoc($getcategory)) {
                 //print_r($rows);
@@ -80,7 +82,8 @@ while ($viewss = mysql_fetch_assoc($views)) {
      $view = $viewss['count'];
 }
 
-                ?>
+                
+            if(isset($getcategory)) { ?>
                 <!-- video-item -->
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="video-item">
@@ -101,13 +104,13 @@ while ($viewss = mysql_fetch_assoc($views)) {
                 <!-- // video-item -->
 
 
-            <?php } ?>
+            <?php }} ?>
         </div><!-- // row -->
 
 
 
 
-    <?php } ?>
+<?php } } ?>
 
      <?php
     $limit = 5;

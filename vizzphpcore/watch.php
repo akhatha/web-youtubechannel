@@ -11,7 +11,10 @@ while ($category = mysql_fetch_assoc($category_id)) {
 }
 
 
-
+$user = mysql_query("SELECT count(*) as count FROM `follow` WHERE `video_id`=$val and user_id=$user_id");
+while ($followcounts = mysql_fetch_assoc($user)) {
+    $followcount = $followcounts['count'];
+}
 $user = mysql_query("SELECT count(*) as count FROM `likes` WHERE `video_id`=$val and liked_by=$user_id");
 while ($usercounts = mysql_fetch_assoc($user)) {
     $usercount = $usercounts['count'];
@@ -89,8 +92,6 @@ while ($comments = mysql_fetch_assoc($commentvideo)) {
     $comment = $comments['count'];
 }
 $displaycomment = mysql_query("SELECT first_name,last_name,channel_name,comment,created_date from comment left join users on users.id=comment.user_id order by comment.created_date DESC");
-
-
 ?>
 
 
@@ -111,7 +112,7 @@ $displaycomment = mysql_query("SELECT first_name,last_name,channel_name,comment,
 
                 <div class="video-share">
                     <ul class="like">
-                        <?php if ($usergold == 0) { ?>
+<?php if ($usergold == 0) { ?>
                             <li><a class="like" href="#" onclick="insert_likes('gold',<?php echo $video_id ?>,<?php echo $user_id ?>)"> <i class="fa fa-star fa-2x  " style="color:#C98910"></i><br/><?php echo $gold; ?></a></li>
                         <?php } else { ?>  
                             <li><a class="like" href="#" onclick="delete_likes('gold',<?php echo $video_id ?>,<?php echo $user_id ?>)"> <i class="fa fa-star  fa-2x " style="color:#C98910"></i><br/><?php echo $gold; ?></a></li>
@@ -124,7 +125,7 @@ $displaycomment = mysql_query("SELECT first_name,last_name,channel_name,comment,
                         <?php if ($userbronce == 0) { ?>
 
                             <li><a class="like" href="#" onclick="insert_likes('bronce',<?php echo $video_id ?>,<?php echo $user_id ?>)"> <i class="fa fa-star  fa-2x "  style="color:#965A38"></i><br/><?php echo $bronce; ?></a></li>
-                        <?php } else { ?>
+<?php } else { ?>
                             <li><a class="like" href="#" onclick="delete_likes('bronce',<?php echo $video_id ?>,<?php echo $user_id ?>)"> <i class="fa fa-star  fa-2x "  style="color:#965A38"></i><br/><?php echo $bronce; ?></a></li>
                         <?php } ?>
                     </ul>
@@ -147,9 +148,15 @@ $displaycomment = mysql_query("SELECT first_name,last_name,channel_name,comment,
                     </div>
                     <div class="chanel-info">
                         <a class="title" href="#"><?php echo $first_name . ' ' . $last_name ?></a>
-                        <span class="subscribers"><?php echo $subscribers; ?> subscribers</span>                     
+             
+                        <span class="subscribers"><?php echo $subscribers; ?>Subscribers</span>                     
                     </div>
-                    <a href="watch.html"class="subscribe">Subscribe</a>
+                    <a href="" class="subscribe">Subscribe</a>
+                <?php if($followcount==0)  
+                    {?>   
+                    <a href=""  onclick="follow(<?php echo $video_id ?>,<?php echo $user_id ?>)" class="subscribe">Follow</a> 
+                        <?php }  else 
+                    { ?> <a href=""  onclick="follow(<?php echo $video_id ?>,<?php echo $user_id ?>)" class="subscribe">Following</a><?php } ?>
                 </div>
                 <!-- // Chanels Item -->
 
@@ -159,22 +166,24 @@ $displaycomment = mysql_query("SELECT first_name,last_name,channel_name,comment,
                     <h3 class="post-box-title"><span><?php echo $comment ?></span> Comments</h3>
                     <ul class="comments-list">
                         <li>
-                        <?php    while ($display_comment = mysql_fetch_assoc($displaycomment)) {
-   $comment = $display_comment['comment'];
+<?php
+while ($display_comment = mysql_fetch_assoc($displaycomment)) {
+    $comment = $display_comment['comment'];
     $channel_name = $display_comment['channel_name'];
     $first_name = $display_comment['first_name'];
     $last_name = $display_comment['last_name'];
-    $created_date = $display_comment['created_date']; ?>
-                            <div class="post_author">
-                                <div class="img_in">
-                                    <a href="#"><img src="images/c1.jpg" alt=""></a>
+    $created_date = $display_comment['created_date'];
+    ?>
+                                <div class="post_author">
+                                    <div class="img_in">
+                                        <a href="#"><img src="images/c1.jpg" alt=""></a>
+                                    </div>
+                                    <a href="watch.html"class="author-name"><?php echo $first_name . ' ' . $last_name ?></a>
+                                    <time datetime="2017-03-24T18:18"><?php echo $created_date ?></time>
                                 </div>
-                                <a href="watch.html"class="author-name"><?php echo $first_name.' '.$last_name ?></a>
-                                <time datetime="2017-03-24T18:18"><?php echo $created_date?></time>
-                            </div>
-                            <p><?php echo $comment;?></p>
-                           <?php  
-} ?>
+                                <p><?php echo $comment; ?></p>
+                                <?php }
+                            ?>
                             <h3 class="post-box-titcle">Add Comments</h3>
                             <form  method="post">
                                 <input type="hidden" id="videoid" value="<?php echo $video_id ?>">
@@ -215,16 +224,32 @@ $displaycomment = mysql_query("SELECT first_name,last_name,channel_name,comment,
                                                     <i class="fa fa-check-circle"></i></span></a>
                                         </div>
                                         <!-- // video item -->
-<?php } ?>
+                                    <?php } ?>
                                 </div>
                             </div><!-- // col-md-4 -->
                             <!-- // Related Posts -->
                             </div><!-- // row -->
                             </div>
-<?php include "footer.php"; ?>
+                            <?php include "footer.php"; ?>
 
                             <script type="text/javascript">
-
+                                 function follow(video_id, user_id)
+                                {
+                                  
+                                    var video_id = video_id;
+                                    var user_id = user_id;
+                                    //alert(likes);
+                                    $.ajax({
+                                        type: "POST",
+                                        url: 'follow.php',
+                                        data: {video_id: video_id,user_id: user_id},
+                                        success: function () {
+                                            //alert("in");
+                                            location.reload();
+                                            //alert( "Data Saved: " + msg ); //Anything you want
+                                        }
+                                    });
+                                }
 
                                 function insert_likes(likes, video_id, liked_by)
                                 {
@@ -266,23 +291,22 @@ $displaycomment = mysql_query("SELECT first_name,last_name,channel_name,comment,
 
 
                                 $('form').on('submit', function (e) {
-                                     e.preventDefault();
+                                    e.preventDefault();
                                     var comment = $("#Message").val();
                                     var video_id = $("#videoid").val();
                                     var user_id = $("#userid").val();
                                     alert(comment);
                                     alert(user_id);
                                     alert(video_id);
-                                   
+
 
                                     $.ajax({
-                                       url: 'comment.php',
-		type:'POST',
-        data: {user_id: user_id, video_id: video_id, comment: comment},
-                                        
-                                        
+                                        url: 'comment.php',
+                                        type: 'POST',
+                                        data: {user_id: user_id, video_id: video_id, comment: comment},
+
                                         success: function (datas) {
-                                            
+
                                             window.location = "watch.php?id=" + video_id;
                                         }
                                     });

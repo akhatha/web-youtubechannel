@@ -1,6 +1,6 @@
 <?php
 include "header.php";
-include('/function.php');
+include('function.php');
 //include('/config.php');
 
   $user_id = $_SESSION['user_id'];

@@ -1,22 +1,23 @@
 <?php
 session_start();
-include('/function.php');
-include('/config.php');
+include('function.php');
+include('config.php');
 
 if (isset($_POST['submit'])) {
-    $username = $_POST['channel_name'];
+     $username = $_POST['channel_name'];
     $first_name = $_POST['first_name'];
     $last_name = $_POST['last_name'];
-    $email = $_POST['email'];
+     $email = $_POST['email'];
     $password = $_POST['password'];
     $re_password = $_POST['re_password'];
     $mobile = $_POST['mobile'];
     $created_at = date('Y-m-d H:i:s');
-    $userExist = user_name_exist($username); //cheking user already exist or not
+    $userExist = user_name_exist($username,$email); //cheking user already exist or not
+   
     $mess = null;
     $data = array('channel_name' => $username, 'created_at' => $created_at, 'first_name' => $first_name, 'last_name' => $last_name, 'email' => $email, 'password' => md5($password), 'user_type' => 'channel', 'mobile' => $mobile);
 
-    if (!$userExist) {
+    if ($userExist==0) {
         $result = dbRowInsert('users', $data);
         $last_id = mysql_insert_id();
         $_SESSION['user_id'] = $last_id;
@@ -72,35 +73,35 @@ if (isset($_POST['submit'])) {
                 <form method="POST" action="">
                     <div class="form-group label-floating">
                         <label class="control-label">First Name</label>
-                        <input class="form-control" placeholder="" type="text" name="first_name">
+                        <input class="form-control" placeholder="" type="text" name="first_name" required>
                     </div>
                     <div class="form-group label-floating">
                         <label class="control-label">Last Name</label>
-                        <input class="form-control" placeholder="" type="text" name="last_name">
+                        <input class="form-control" placeholder="" type="text" name="last_name" required>
                     </div>
                     <div class="form-group label-floating">
                         <label class="control-label">User Name</label>
-                        <input class="form-control" placeholder="" type="text" name="channel_name">
+                        <input class="form-control" placeholder="" type="text" name="channel_name" required>
                     </div>
 <?php if (isset($mess)) {
     echo $mess;
 } ?>
                     <div class="form-group label-floating">
                         <label class="control-label">Your Email</label>
-                        <input class="form-control" placeholder="" type="email" name="email">
+                        <input class="form-control" placeholder="" type="email" name="email" required>
                     </div>
                     <div class="form-group label-floating">
                         <label class="control-label">Your Password</label>
-                        <input class="form-control" placeholder="" type="password" name="password">
+                        <input class="form-control" placeholder="" type="password" name="password" required>
                     </div>
 
                     <div class="form-group label-floating">
                         <label class="control-label">Confirm Your Password</label>
-                        <input class="form-control" placeholder="" type="password" name="re_password">
+                        <input class="form-control" placeholder="" type="password" name="re_password" required>
                     </div>
                     <div class="form-group label-floating">
                         <label class="control-label">Mobile</label>
-                        <input class="form-control" placeholder="" type="text" name="mobile">
+                        <input class="form-control" placeholder="" type="text" name="mobile" required>
                     </div>
 
 

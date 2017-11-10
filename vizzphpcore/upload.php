@@ -77,7 +77,7 @@ if (isset($_POST['video_submit'])) {
 
 <input type="hidden" name="hiddenId" id="hiddenId" value="<?php echo $last_id; ?>">
 <?php if(isset($videoExt) =='mp4' || isset($videoExt) =='MP4'){?>
-<video width="320" height="240" controls id="video" style="display:none">
+<video width="320" height="240" controls id="video">
     <source src="<?php echo $url; ?>" type="video/mp4">
 </video>
 <?php }?>
@@ -101,15 +101,27 @@ if (isset($_POST['video_submit'])) {
 
     var video_obj = null;
 
-    document.getElementById('video').addEventListener('loadedmetadata', function () {
+   /* document.getElementById('video').addEventListener('loadedmetadata', function () {
+        alert("loadedmetadata");
         this.currentTime = time;
         video_obj = this;
 
-    }, false);
+    }, false);*/
+    
+    function init() {
+    var video = document.getElementById('viddy');
+    video.addEventListener('loadedmetadata', function(e){
+        this.currentTime = time;
+        video_obj = this;
+    });
+}
+
+document.addEventListener("DOMContentLoaded", init, false);
+
 
     document.getElementById('video').addEventListener('loadeddata', function () {
         var video = document.getElementById('video');
-
+        //alert("loadeddata");
         var canvas = document.createElement("canvas");
         canvas.width = 250;
         canvas.height = 150;
@@ -204,6 +216,7 @@ if (isset($mess)) {
 //register canplaythrough event to #audio element to can get duration
     var f_duration = 0;  //store duration
     document.getElementById('audio').addEventListener('canplaythrough', function (e) {
+        //alert("audio");
         fh_duration = parseInt(e.currentTarget.duration / 3600);
         fm_duration = parseInt(e.currentTarget.duration % 3600 / 60);
         fs_duration = Math.round(e.currentTarget.duration % 3600 % 60);
@@ -214,6 +227,7 @@ if (isset($mess)) {
 //when select a file, create an ObjectURL with the file and add it in the #audio element
     var obUrl;
     document.getElementById('fileToUpload').addEventListener('change', function (e) {
+        //alert("fileToUpload");
         var file = e.currentTarget.files[0];
         //check file extension for audio/video type
         if (file.name.match(/\.(avi|mp3|mp4|wmv|mpeg|ogg|flv)$/i)) {

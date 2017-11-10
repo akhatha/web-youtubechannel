@@ -131,6 +131,7 @@ while ($rows = mysql_fetch_assoc($getChannnelDetail)) {
                 	<li><a href="home.php"><i class="fa fa-home"></i>Home</a></li>
                 	<li><a href="trending.php"><i class="fa fa-bolt"></i>Trending</a></li>
                 	<li><a href="history.php"><i class="fa fa-clock-o"></i>History</a></li>
+                        <li><a href="displayfollow.php"><i class="fa fa-clock-o"></i>Followed videos</a></li>
                 	<!-- <li><a href="blog.html"><i class="fa fa-file-text"></i>blog</a></li>  -->
                 	<li><a href="upload.php"><i class="fa fa-upload"></i>upload</a></li>
                 </ul>
