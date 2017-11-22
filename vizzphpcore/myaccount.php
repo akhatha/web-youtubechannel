@@ -21,6 +21,9 @@ while ($row = mysql_fetch_assoc($getUserDetails)) {
 		$channel_name = $row['channel_name'];
 		$mobile = $row['mobile'];
 		$email = $row['email'];
+                $img_name= $row['img_name'];
+                $img_type= $row['img_type'];
+                $description= $row['description'];
 			
 		  
     }
@@ -63,17 +66,41 @@ if(isset($_POST['profile']))
   <div class="row">
     <div class="col-md-12">
       <div class="tabs-left">
-        <ul class="nav nav-tabs">
-          <li class="active"><a href="#a" data-toggle="tab">View Profile</a></li>
-          <li><a href="#b" data-toggle="tab">Edit Profile</a></li>
+        <ul class="nav nav-tabs">         
+          <li  class="active"><a href="#a" data-toggle="tab">Edit Profile</a></li>
+          <li><a href="#b" data-toggle="tab">View Profile</a></li>
+          
           <li><a href="#c" data-toggle="tab">Wallet</a></li>
           <li><a href="#d" data-toggle="tab">Change Password</a></li>
           <li><a href="logout.php" >Logout</a></li>
         </ul>
         <div class="tab-content">
+          
           <div class="tab-pane active" id="a">
+            <div class="post-comments single-comments">
+                        	
+                            
+
+
+                        	<h3 class="post-box-title">Edit Profile</h3>
+                            <form id="profileForm" action="" method="post" enctype="multipart/form-data">
+							<div id="mess"></div>
+                               <input required="" id="fName" name="fName" required="" value="<?php echo $first_name;?>" type="text" class="form-control"  placeholder="YOUR FIRST NAME">
+ <input name="lName"  id="lName"value="<?php echo $last_name;?>" required="" type="text" class="form-control"  placeholder="YOUR LAST NAME">
+ <input name="uName" id="uName" value="<?php echo $channel_name;?>"readonly type="text" class="form-control" placeholder="YOUR USERNAME">
+                               <input value="<?php echo $email;?>"name="email" readonly type="email" class="form-control" id="email" placeholder="EMAIL">
+                               <input value="<?php echo $mobile;?>"name="mobile" id="mobile"required="" type="text" class="form-control" placeholder="MOBILE NUMBER">
+                               <textarea id="description" maxlength="250" name="description"></textarea>
+                            </form>
+                               <input required="" type="file" name="fileToUpload" id="fileToUpload"  accept="image/*">
+                               
+                               <button type="submit" id="profile" name="profile" class="btn btn-dm"> Submit</button> 
+            </div>
+          </div>
+            <div class="tab-pane" id="b">
             <h3>These are your info</h3>
-            <ul class="list-group pull-left col-md-4">
+            <ul class="list-group pull-left col-md-12">
+                <img src="<?php echo PROF_URL . $img_name.'.'.$img_type ?>" alt="No profile pic" height="150" width="150">
               <li class="list-group-item">
                 <h4>First Name<span class="badge pull-right"><?php echo $first_name;?></span></h4>
               </li>
@@ -84,6 +111,9 @@ if(isset($_POST['profile']))
                 <h4>User Name<span class="badge pull-right"><?php echo $channel_name;?></span></h4>
               </li>
               <li class="list-group-item">
+                 <h4>Description<span class="badge pull-right"><?php echo $description;?></span></h4>
+              </li>
+              <li class="list-group-item">
                 <h4>Email ID<span class="badge pull-right"><?php echo $email;?></span></h4>
               </li>
               <li class="list-group-item">
@@ -91,38 +121,28 @@ if(isset($_POST['profile']))
               </li>
             </ul>
           </div>
-          <div class="tab-pane" id="b">
-            <div class="post-comments single-comments">
-                        	
-                            
-
-
-                        	<h3 class="post-box-title">Edit Your Comments</h3>
-                            <form id="profileForm" method="post">
-							<div id="mess"></div>
-                               <input required="" id="fName" name="fName" required="" value="<?php echo $first_name;?>" type="text" class="form-control"  placeholder="YOUR FIRST NAME">
- <input name="lName"  id="lName"value="<?php echo $last_name;?>" required="" type="text" class="form-control"  placeholder="YOUR LAST NAME">
- <input name="uName" id="uName" value="<?php echo $channel_name;?>"readonly type="text" class="form-control" placeholder="YOUR USERNAME">
-                               <input value="<?php echo $email;?>"name="email" readonly type="email" class="form-control" id="email" placeholder="EMAIL">
-                               <input value="<?php echo $mobile;?>"name="mobile" id="mobile"required="" type="text" class="form-control" placeholder="MOBILE NUMBER">
-                               <button type="submit" id="profile" name="profile" class="btn btn-dm"> Submit</button>                          </form>
-                        </div>
-          </div>
           <div class="tab-pane" id="c">
 <div class="row">
 
-				<div class="col-md-4">
+						<div class="col-md-4">
 <h1 class="error-no">CONGRATULATIONS!!</h1><br/>
 <?php
-$getwalletDetails = mysql_query("SELECT sum(wallet_amount) as amount  FROM wallet WHERE channel_id = '$userId'");
+$getwalletDetails = mysql_query("SELECT sum(amount) as amount  FROM subscription WHERE channel_id = '$userId'");
+if(isset($getwalletDetails)){
 while ($wallet = mysql_fetch_assoc($getwalletDetails)) {
 	$amounts=$wallet['amount'];
 }
+}
+else
+{
+	$amounts='';
+}
 
 ?>
-<h2 class="error-text">Your Wallet is having $<?php echo $amounts;?></h2>
+<?php if($amounts>0){?>
+<h2 class="error-text">Your Wallet is having $<?php echo $amounts;?></h2><?php } else { ?>
+<h4 class="error-text">You don't have sufficient balance in your  wallet </h4><?php } ?>
                 </div><!-- // col-md-4 -->
-
 </div>
         </div><!-- /tab-content -->
     <div class="tab-pane" id="d">
@@ -163,21 +183,41 @@ $( document ).ready(function() {
 		 $("#profileForm").submit(function(e) {
     e.preventDefault();
 });
-    $("#profileForm").validate();
-	 var isValid =$("#profileForm").valid();
-	 if(isValid){
+    //$("#profileForm").validate();
+	 //var isValid =$("#profileForm").valid();
+	 //if(isValid){
 		var siteUrl = "<?php echo SITE_URL; ?>";
 
         var uName = $('#uName').val();
-		var fName = $('#fName').val();
+		var fileToUpload = $('#fileToUpload').val();
+                alert(fileToUpload);
+                var fName = $('#fName').val();
 		var lName = $('#lName').val();
 		var email = $('#email').val();
 		var mobile = $('#mobile').val();
+                var description = $('#description').val();
+                var formData = new FormData();
+formData.append('file', $('input[type=file]')[0].files[0]);
+ 
+    var other_data = $('form').serializeArray();
+    $.each(other_data,function(key,input){
+        formData.append(input.name,input.value);
+    });
+
         //var id = document.getElementById('hiddenId').value;
-        $.post(
-                siteUrl + "updateprofile.php?action=updateprofiles",
-                {uName: uName, fName: fName, lName: lName, email: email, mobile: mobile},
-                function (mess) {
+       $.ajax({
+url: "updateprofile.php?action=updateprofiles", // Type of request to be send, called as method
+type: "POST", 
+data:  formData, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+contentType: false,       // The content type used when sending data to the server.
+cache: false,             // To unable request pages to be cached
+processData:false,        // To send DOMDocument or non processed data file it is set to false
+success: function(mess)   // A function to be called if request succeeds
+{
+                /*siteUrl + "updateprofile.php?action=updateprofiles",
+                {uName: uName, fName: fName, lName: lName, email: email, mobile: mobile,fileToUpload:fileToUpload},
+                function (mess) {*/
+                    
 		if(mess == 1){
 			 $("#mess").html('');
 			 $("#mess").fadeIn();
@@ -194,8 +234,8 @@ $( document ).ready(function() {
 			  
 		}
                 }
-        );	
-	 }
+                });	
+	 //}
 	
 });
 

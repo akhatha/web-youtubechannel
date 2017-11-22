@@ -13,6 +13,8 @@ $getChannnelDetails = mysql_query("SELECT * FROM `users` where id=$user_id");
 while ($row = mysql_fetch_assoc($getChannnelDetails)) {
      $first_name = $row['first_name'];
      $last_name = $row['last_name'];
+         $img_name= $row['img_name'];
+                $img_type= $row['img_type'];
      
 }
 $getChannnelDetail = mysql_query("SELECT count(*) as count FROM `subscription` WHERE `channel_id`=$user_id");
@@ -72,8 +74,8 @@ while ($rows = mysql_fetch_assoc($getChannnelDetail)) {
                 </div><!-- // col-md-2 -->
                 <div class="col-lg-3 col-md-3 col-sm-6 hidden-xs hidden-sm">
                     <div class="search-form">
-                        <form id="search" action="#" method="post">
-                            <input type="text" placeholder="Search here video posts..."/>
+                        <form id="search" action="search.php" method="post">
+                            <input type="text"  name="keyword" placeholder="Search here video posts..."/>
                             <input type="submit" value="Keywords" />
                         </form>
                     </div>
@@ -89,7 +91,7 @@ while ($rows = mysql_fetch_assoc($getChannnelDetail)) {
                 <div class="col-lg-2 col-md-2 col-sm-3 hidden-xs hidden-sm">
 					  <div class="dropdown">
                         <a data-toggle="dropdown" href="#" class="user-area">
-                            <div class="thumb"><img src="images/user-1.png" alt=""></div>
+                            <div class="thumb"><img <img src="<?php echo PROF_URL . $img_name.'.'.$img_type ?>" alt=""></div>
                             <h2><?php echo $first_name.' '.$last_name?></h2>
                             <h3><?php echo $subscribers; ?> subscribers</h3>
                             <i class="fa fa-angle-down"></i>
@@ -132,11 +134,12 @@ while ($rows = mysql_fetch_assoc($getChannnelDetail)) {
                 	<li><a href="trending.php"><i class="fa fa-bolt"></i>Trending</a></li>
                 	<li><a href="history.php"><i class="fa fa-clock-o"></i>History</a></li>
                         <li><a href="displayfollow.php"><i class="fa fa-clock-o"></i>Followed videos</a></li>
-                	<!-- <li><a href="blog.html"><i class="fa fa-file-text"></i>blog</a></li>  -->
+                	<li><a href="subscribedchannel.php"><i class="fa fa-clock-o"></i>Subscribed Channel videos</a></li>
+<!-- <li><a href="blog.html"><i class="fa fa-file-text"></i>blog</a></li>  -->
                 	<li><a href="upload.php"><i class="fa fa-upload"></i>upload</a></li>
                 </ul>
             	<ul class="menu-sidebar">
-                	<li><a href="edit_profile.php"><i class="fa fa-edit"></i>edit profile</a></li>
+                	<li><a href="myaccount.php"><i class="fa fa-edit"></i>edit profile</a></li>
                 	<li><a href="logout.php"><i class="fa fa-sign-out"></i>sign out</a></li>
                 </ul>
             	<ul class="menu-sidebar">

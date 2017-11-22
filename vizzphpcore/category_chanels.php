@@ -35,9 +35,9 @@ include('/function.php');
                 <?php } ?>                  
                 </div><!-- // row -->
                 <!-- Loading More Videos -->
-                <div id="loading-more">
+               <!-- <div id="loading-more">
                     <i class="fa fa-refresh faa-spin animated"></i> <span>Loading more</span>
-                </div>
+                </div>-->
                 <!-- // Loading More Videos -->
             </div>
         </div><!-- // row -->

@@ -106,9 +106,12 @@ while ($rows = mysql_fetch_assoc($getcategory)) {
         $total_records = $rows['count'];
         $total_pages = ceil($total_records / $limit);
         $pagLink = "<nav><ul class='pagination'>";
+         if($total_records>10)
+        {
         for ($i = 1; $i <= $total_pages; $i++) {
             $pagLink .= "<li><a href='category_videos.php?category=" . $val . "&page=" . $i . "'>" . $i . "</a></li>";
         };
+        }
         echo $pagLink . "</ul></nav>";
     }
     ?>

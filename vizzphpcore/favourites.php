@@ -101,9 +101,12 @@ while ($row = mysql_fetch_assoc($getChannnelDetails)) {
     
         $total_pages = ceil($total_records / $limit);
         $pagLink = "<nav><ul class='pagination'>";
+        if($total_records>10)
+        {
         for ($i = 1; $i <= $total_pages; $i++) {
             $pagLink .= "<li><a href='favourites.php?page=" . $i . "'>" . $i . "</a></li>";
         };
+        }
         echo $pagLink . "</ul></nav>";
     
     ?>

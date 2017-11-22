@@ -11,7 +11,7 @@ include('function.php');
 
         <h1 class="title">Followed videos</h1>
 
-        <div class="filter">
+       <div class="filter">
             <div class="row">
                 <div class="col-md-8">
                     <ul class="nav nav-tabs">
@@ -20,14 +20,7 @@ include('function.php');
                           <li><a data-toggle="tab" href="#comments">Comments</a></li>-->
                     </ul>
                 </div><!-- // col-md-8 -->
-                <div class="col-md-4">
-                    <div class="search-form">
-                        <form id="search_history" action="#" method="post">
-                            <input type="text" placeholder="Search here video posts..."/>
-                            <input type="submit" value="Keywords" />
-                        </form>
-                    </div>
-                </div><!-- // col-md-4 -->
+              
             </div><!-- // row -->
         </div><!-- // filter -->
 
@@ -103,9 +96,12 @@ while ($row = mysql_fetch_assoc($getChannnelDetails)) {
     
         $total_pages = ceil($total_records / $limit);
         $pagLink = "<nav><ul class='pagination'>";
+        if($total_records>10)
+        {
         for ($i = 1; $i <= $total_pages; $i++) {
             $pagLink .= "<li><a href='displayfollow.php?page=" . $i . "'>" . $i . "</a></li>";
         };
+        }
         echo $pagLink . "</ul></nav>";
     
     ?>

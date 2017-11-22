@@ -80,6 +80,10 @@ $getuserdetails = mysql_query("SELECT * FROM `users` where id=$user_id");
 while ($getuser = mysql_fetch_assoc($getuserdetails)) {
     $first_name = $getuser['first_name'];
     $last_name = $getuser['last_name'];
+     $img_name= $getuser['img_name'];
+                $img_type= $getuser['img_type'];
+                $subscriberid= $getuser['id'];
+    
 }
 
 $getsubscriber = mysql_query("SELECT count(*) as count FROM `subscription` WHERE `channel_id`=$channel_id");
@@ -91,7 +95,7 @@ $commentvideo = mysql_query("SELECT count(*) as count FROM `comment` WHERE `vide
 while ($comments = mysql_fetch_assoc($commentvideo)) {
     $comment = $comments['count'];
 }
-$displaycomment = mysql_query("SELECT first_name,last_name,channel_name,comment,created_date from comment left join users on users.id=comment.user_id order by comment.created_date DESC");
+$displaycomment = mysql_query("SELECT first_name,last_name,channel_name,comment,created_date from comment left join users on users.id=comment.user_id where comment.`video_id`=$video_id order by comment.created_date DESC");
 ?>
 
 
@@ -144,19 +148,20 @@ $displaycomment = mysql_query("SELECT first_name,last_name,channel_name,comment,
                 <!-- Chanels Item -->
                 <div class="chanel-item">
                     <div class="chanel-thumb">
-                        <a href="#"><img src="images/ch-1.jpg" alt=""></a>
+                        <a target="_blank" href="myprofile.php?id=<?php echo $subscriberid?>"><img src="<?php echo PROF_URL . $img_name.'.'.$img_type ?>" alt=""></a>
                     </div>
                     <div class="chanel-info">
-                        <a class="title" href="#"><?php echo $first_name . ' ' . $last_name ?></a>
+                        <a target="_blank" class="title" href="myprofile.php?id=<?php echo $subscriberid?>"><?php echo $first_name . ' ' . $last_name ?></a>
              
                         <span class="subscribers"><?php echo $subscribers; ?>Subscribers</span>                     
                     </div>
-                    <a href="" class="subscribe">Subscribe</a>
+                    <a href="supportme.php?videoid=<?php echo $val?>" class="subscribe">Support me</a>
+                    <a href="subsciptionpage.php?channel=<?php echo $subscriberid?>" class="subscribe">Subscribe</a>
                 <?php if($followcount==0)  
                     {?>   
                     <a href=""  onclick="follow(<?php echo $video_id ?>,<?php echo $user_id ?>)" class="subscribe">Follow</a> 
                         <?php }  else 
-                    { ?> <a href=""  onclick="follow(<?php echo $video_id ?>,<?php echo $user_id ?>)" class="subscribe">Following</a><?php } ?>
+                    { ?> <a href=""  onclick="unfollow(<?php echo $video_id ?>,<?php echo $user_id ?>)" class="subscribe">Unfollow</a><?php } ?>
                 </div>
                 <!-- // Chanels Item -->
 
@@ -242,6 +247,23 @@ while ($display_comment = mysql_fetch_assoc($displaycomment)) {
                                     $.ajax({
                                         type: "POST",
                                         url: 'follow.php',
+                                        data: {video_id: video_id,user_id: user_id},
+                                        success: function () {
+                                            //alert("in");
+                                            location.reload();
+                                            //alert( "Data Saved: " + msg ); //Anything you want
+                                        }
+                                    });
+                                }
+                                 function unfollow(video_id, user_id)
+                                {
+                                  
+                                    var video_id = video_id;
+                                    var user_id = user_id;
+                                    //alert(likes);
+                                    $.ajax({
+                                        type: "POST",
+                                        url: 'unfollow.php',
                                         data: {video_id: video_id,user_id: user_id},
                                         success: function () {
                                             //alert("in");

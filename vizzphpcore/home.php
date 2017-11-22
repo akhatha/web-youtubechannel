@@ -9,7 +9,9 @@ include('function.php');
     <h1 class="new-video-title"><i class="fa fa-bolt"></i> Trending</h1>
     <div class="row">
         <?php
-        $getcategory = mysql_query("SELECT *,u.video_id,count(*) FROM `uploaded_videos` u LEFT JOIN likes c on u.video_id=c.video_id left join users us on u.`channel_id`=us.id where created_date between '2017-10-01' and '2017-10-31' GROUP by c.`video_id` ORDER BY count(*) DESC LIMIT 0,4");
+        $fromdate=date('Y-m-01');
+                    $todate=date('Y-m-31');
+        $getcategory = mysql_query("SELECT *,u.video_id,count(*) FROM `uploaded_videos` u LEFT JOIN likes c on u.video_id=c.video_id left join users us on u.`channel_id`=us.id where created_date between '$fromdate' and '$todate' GROUP by c.`video_id` ORDER BY count(*) DESC LIMIT 0,4");
         while ($rows = mysql_fetch_assoc($getcategory)) {
             //$video_title = $rows['video_title'];
             $id = $rows['video_id'];
@@ -120,9 +122,12 @@ while ($viewss = mysql_fetch_assoc($views)) {
         $total_records = $rows['count'];
         $total_pages = ceil($total_records / $limit);
         $pagLink = "<nav><ul class='pagination'>";
+        if($total_records>10)
+        {
         for ($i = 1; $i <= $total_pages; $i++) {
             $pagLink .= "<li><a href='home.php?page=" . $i . "'>" . $i . "</a></li>";
         };
+        }
         echo $pagLink . "</ul></nav>";
     }
     ?>
