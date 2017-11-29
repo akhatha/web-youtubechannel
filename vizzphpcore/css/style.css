@@ -701,8 +701,8 @@ header ul.account-menu li  .color-4{
 	display: block;
 	margin-right: 30px;
 	text-transform: uppercase;
-	padding-top: 5px;
-	padding-bottom: 5px;
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 #main-category ul.main-category-menu li a .fa{
 	color: #ffffff;
@@ -1479,7 +1479,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 #watch .video-share{
 	border: 1px solid #e6e8e8;
 	padding: 20px;
-	margin-top: 30px;
+	margin-top: 68%;
 	margin-bottom: 30px;
 	background-color: #fbfbfb;
 }

@@ -19,6 +19,7 @@ if (isset($_POST['submit'])) {
 
     if ($userExist==0) {
         $result = dbRowInsert('users', $data);
+        sendRegistrationtMail($email,'VIZZDEO',$email,$password ,"Vizzdeo Registration Mail");
         $last_id = mysql_insert_id();
         $_SESSION['user_id'] = $last_id;
         $_SESSION['username'] = $username;

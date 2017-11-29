@@ -765,4 +765,53 @@ function sendForgotMail($to_email,$user_name,$user_email,$pass,$message){
       
    }
 }
+
+function sendRegistrationtMail($to_email,$user_name,$user_email,$pass,$message)
+{
+
+    $message_body = $message."\n-Email : ".$user_email ."\r\password : ".$pass;
+   
+    //proceed with PHP email.
+    $headers = 'From: '.$user_name.'' . "\r\n" .
+    'Reply-To: '.$user_email.'' . "\r\n" .
+    'X-Mailer: PHP/' . phpversion();
+    
+    $subject="Vizzdeo Registration";
+   
+  $send_mail = mail($to_email, $subject, $message_body, $headers);
+   
+    if(!$send_mail)
+   {
+      echo 'Could not send mail! Please check your PHP mail configuration';
+      
+    }else{
+       echo 'Thank you for your email';
+      
+   }
+}
+//sendReportMail($_POST['email'],'VIZZDEO',$_POST['email'],$_POST['username'] ,"Vizzdeo Registration Mail");
+function sendReportMail($to_email,$user_name,$msg,$name,$message)
+{
+ //sendReportMail($_POST['email'],'VIZZDEO',$_POST['message'],$_POST['username'] ,"Vizzdeo Registration Mail");
+    $message_body = $message."\n-Name : ".$user_name."\n-Email : ".$to_email ."\r\Message : ".$msg;
+   
+    //proceed with PHP email.
+    $headers = 'From: '.$name.'' . "\r\n" .
+    'Reply-To: '.$to_email.'' . "\r\n" .
+    'X-Mailer: PHP/' . phpversion();
+    
+    $subject="Vizzdeo Registration";
+   
+  $send_mail = mail($to_email, $subject, $message_body, $headers);
+   
+    if(!$send_mail)
+   {
+      echo 'Could not send mail! Please check your PHP mail configuration';
+      
+    }else{
+       echo 'Thank you for your email';
+      
+   }
+}
+
 ?>

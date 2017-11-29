@@ -133,7 +133,7 @@ $displaycomment = mysql_query("SELECT first_name,last_name,channel_name,comment,
                             <li><a class="like" href="#" onclick="delete_likes('bronce',<?php echo $video_id ?>,<?php echo $user_id ?>)"> <i class="fa fa-star  fa-2x "  style="color:#965A38"></i><br/><?php echo $bronce; ?></a></li>
                         <?php } ?>
                     </ul>
-                    <ul class="social_link">
+                   <ul class="social_link">
                         <li><a class="facebook" href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
                         <li><a class="youtube" href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
                         <li><a class="linkedin" href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
@@ -141,6 +141,7 @@ $displaycomment = mysql_query("SELECT first_name,last_name,channel_name,comment,
                         <li><a class="twitter" href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
                         <li><a class="rss" href="#"><i class="fa fa-rss" aria-hidden="true"></i></a></li>
                     </ul><!-- // Social -->
+<button type="submit"  data-toggle="modal" data-target="#reportthis" class="btn btn-danger">Report This</button> 
                 </div><!-- // video-share -->
                 <!-- // Video Player -->
 
@@ -308,6 +309,29 @@ while ($display_comment = mysql_fetch_assoc($displaycomment)) {
                                     });
                                 }
 
+                              $(document).ready(function () { 
+                                  //alert("hi");
+                             $("#submit_btn").click(function () {
+                                 alert("hhh");
+       var formDataValues = document.forms.namedItem("formsubmit");
+        var formValues = new FormData(formDataValues);  
+        alert(formDataValues);
+        $.ajax({
+                url: 'report.php',
+                type: 'POST',
+           processData: false,
+                      contentType: false,
+                      data: formValues,
+                success: function (data) {
+                    alert(data);
+                    //alert("updated successfully");
+                    
+                    //$('#reportthis').modal('hide');
+                  //location.reload();
+                }
+             });
+     });
+                                
 
 
 
@@ -336,5 +360,28 @@ while ($display_comment = mysql_fetch_assoc($displaycomment)) {
                                 });
 
 
-
-                            </script>
+});
+                       
+       </script>
+<div id="reportthis" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content col-md-8 col-md-offset-2">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h2 class="modal-title text-center">Report This</h2>
+            </div>
+            <div class="modal-body">
+		<div class="col-md-12">
+		<form  id="formsubmit">
+					   
+<input type="text" id="name" placeholder="Name" required="true" name="username" class="form-control">
+<input type="email" id="email" placeholder="Email" name="email" required="true" class="form-control"> 
+<textarea id="message" placeholder="Message" name="message" required="true" class="form-control" style="margin-bottom:10px;" rows="5" cols="18"></textarea>
+					   
+								<button class="btn btn-default btn-lg" id="submit_btn" type="button" float="right" style="background-color:#1f5c99;color:white;">Send</button><br/><br/>
+					</form>	
+					</div>
+            </div>
+        </div>
+    </div>
+</div>
