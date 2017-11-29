@@ -323,11 +323,11 @@ while ($display_comment = mysql_fetch_assoc($displaycomment)) {
                       contentType: false,
                       data: formValues,
                 success: function (data) {
-                    alert(data);
-                    //alert("updated successfully");
+                    //alert(data);
+                    alert("Mail sent");
                     
-                    //$('#reportthis').modal('hide');
-                  //location.reload();
+                    $('#reportthis').modal('hide');
+                  location.reload();
                 }
              });
      });

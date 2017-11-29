@@ -792,12 +792,13 @@ function sendRegistrationtMail($to_email,$user_name,$user_email,$pass,$message)
 //sendReportMail($_POST['email'],'VIZZDEO',$_POST['email'],$_POST['username'] ,"Vizzdeo Registration Mail");
 function sendReportMail($to_email,$user_name,$msg,$name,$message)
 {
- //sendReportMail($_POST['email'],'VIZZDEO',$_POST['message'],$_POST['username'] ,"Vizzdeo Registration Mail");
+    $toemail='gauthami9111@gmail.com';
+ 
     $message_body = $message."\n-Name : ".$user_name."\n-Email : ".$to_email ."\r\Message : ".$msg;
    
     //proceed with PHP email.
     $headers = 'From: '.$name.'' . "\r\n" .
-    'Reply-To: '.$to_email.'' . "\r\n" .
+    'Reply-To: '.$toemail.'' . "\r\n" .
     'X-Mailer: PHP/' . phpversion();
     
     $subject="Vizzdeo Registration";
